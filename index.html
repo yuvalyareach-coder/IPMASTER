@@ -2204,8 +2204,14 @@ const GameView = ({ userData, updateUser, setView }) => {
   const [projectiles, setProjectiles] = useState([]);
   const [playerX, setPlayerX] = useState(50);
   const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(3);
-  const [wave, setWave] = useState(1);
+  const [lives, setLives] = useState(5);
+  const [wave, setWave] = useState(1); // stage 1-5
+  const [correctHits, setCorrectHits] = useState(0);
+  const [mistakes, setMistakes] = useState(0);
+  const [gameResult, setGameResult] = useState('lost'); // lost, completed
+  const MAX_STAGE = 5;
+  const TARGETS_TO_ADVANCE = 5;
+  const MAX_MISTAKES = 5;
   const containerRef = useRef(null);
   const keysRef = useRef({});
   const lastShotRef = useRef(0);
@@ -2222,13 +2228,15 @@ const GameView = ({ userData, updateUser, setView }) => {
     { id: 'network24', label: 'ירה בכתובות רשת של /24', check: ip => ip.split('.')[3] === '0' },
   ];
 
-  const spawnWave = useCallback(() => {
+  const spawnWave = useCallback((stageOverride = wave) => {
     spawningRef.current = false;
+    const stage = Math.min(MAX_STAGE, Math.max(1, stageOverride));
     const crit = CRITERIA[Math.floor(Math.random() * CRITERIA.length)];
     setCriterion(crit);
     const newInvaders = [];
-    // Fewer invaders: starts at 3, slowly grows. Cap at 5 per row for readability.
-    const count = Math.min(6, 3 + Math.floor((wave - 1) / 2));
+    // בכל שלב מופיעות כתובות במספר שמתאים גם לנייד.
+    // השלבים מתקדמים אחרי 7 פגיעות נכונות ופחות מ-2 טעויות.
+    const count = Math.min(6, 3 + Math.floor((stage - 1) / 2));
     for (let i = 0; i < count; i++) {
       let ip;
       // Mix: ~40% chance to match criterion, rest random
@@ -2256,7 +2264,7 @@ const GameView = ({ userData, updateUser, setView }) => {
       newInvaders.push({
         id: Math.random(),
         ip,
-        x: 15 + col * (70 / Math.max(perRow - 1, 1)),
+        x: 22 + col * (56 / Math.max(perRow - 1, 1)),
         y: -10 - row * 18,
         match: crit.check(ip)
       });
@@ -2267,17 +2275,22 @@ const GameView = ({ userData, updateUser, setView }) => {
   const startGame = () => {
     setGameState('playing');
     setScore(0);
-    setLives(3);
+    setLives(5);
     setWave(1);
+    setCorrectHits(0);
+    setMistakes(0);
+    setGameResult('lost');
     setProjectiles([]);
+    setInvaders([]);
     setHitMessages([]);
     setPlayerX(50);
-    spawnWave();
+    spawningRef.current = true;
+    setTimeout(() => spawnWave(1), 0);
   };
 
   const shoot = () => {
     const now = Date.now();
-    if (now - lastShotRef.current < 250) return;
+    if (now - lastShotRef.current < 150) return;
     lastShotRef.current = now;
     setProjectiles(p => [...p, { id: Math.random(), x: playerX, y: 90 }]);
   };
@@ -2288,12 +2301,15 @@ const GameView = ({ userData, updateUser, setView }) => {
     const interval = setInterval(() => {
       // Move invaders down
       setInvaders(prev => {
-        const moved = prev.map(inv => ({ ...inv, y: inv.y + 0.018 + wave * 0.002 }));
+        const moved = prev.map(inv => ({ ...inv, y: inv.y + 0.45 + wave * 0.075 }));
         // Check ones reached bottom
         const reachedBottom = moved.filter(inv => inv.y > 88);
         if (reachedBottom.length > 0) {
-          const wrongLet = reachedBottom.filter(inv => inv.match).length;
-          if (wrongLet > 0) setLives(l => l - wrongLet);
+          const missedTargets = reachedBottom.filter(inv => inv.match).length;
+          if (missedTargets > 0) {
+            setMistakes(m => m + missedTargets);
+            setLives(l => l - missedTargets);
+          }
         }
         return moved.filter(inv => inv.y <= 88);
       });
@@ -2320,15 +2336,22 @@ const GameView = ({ userData, updateUser, setView }) => {
         let hit = false;
         for (const inv of invaders) {
           if (hitInvaderIds.has(inv.id)) continue;
-          if (Math.abs(proj.x - inv.x) < 9 && Math.abs(proj.y - inv.y) < 7) {
+          // Hit box מורחב: בנייד לא חייבים לפגוע בדיוק במרכז הכתובת.
+          if (Math.abs(proj.x - inv.x) < 14 && Math.abs(proj.y - inv.y) < 11) {
             hitInvaderIds.add(inv.id);
             hit = true;
-            // Score adjustment
-            setScore(s => s + (inv.match ? 100 : -50));
-            const msg = { id: Math.random(), x: inv.x, y: inv.y, ok: inv.match, text: inv.match ? '🎯 בול פגיעה!' : '❌ שגיאה' };
+            // Score adjustment and stage progress
+            if (inv.match) {
+              setScore(s => s + 100);
+              setCorrectHits(h => h + 1);
+            } else {
+              setScore(s => s - 50);
+              setMistakes(m => m + 1);
+              setLives(l => l - 1);
+            }
+            const msg = { id: Math.random(), x: inv.x, y: inv.y, ok: inv.match, text: inv.match ? '🎯 פגיעה נכונה!' : '❌ טעות' };
             setHitMessages(m => [...m.slice(-4), msg]);
             setTimeout(() => setHitMessages(m => m.filter(item => item.id !== msg.id)), 900);
-            if (!inv.match) setLives(l => l - 0.5); // wrong target penalty
             break;
           }
         }
@@ -2342,28 +2365,50 @@ const GameView = ({ userData, updateUser, setView }) => {
     });
   }, [projectiles, invaders, gameState]);
 
-  // Check wave completion
+  // Stage completion: 7 correct hits with fewer than 2 mistakes advances to the next stage.
   useEffect(() => {
-    if (gameState === 'playing' && invaders.length === 0 && !spawningRef.current) {
-      spawningRef.current = true;
-      setTimeout(() => {
-        setWave(w => w + 1);
-        spawnWave();
-      }, 800);
-    }
-  }, [invaders.length, gameState, spawnWave]);
-
-  // Game over
-  useEffect(() => {
-    if (lives <= 0 && gameState === 'playing') {
+    if (gameState !== 'playing') return;
+    if (mistakes >= MAX_MISTAKES || lives <= 0) {
+      setGameResult('lost');
       setGameState('over');
       updateUser(prev => ({
         ...prev,
         highScore: Math.max(prev.highScore || 0, score),
-        activityLog: [...(prev.activityLog || []), { type: 'game', score, wave, time: Date.now() }]
+        activityLog: [...(prev.activityLog || []), { type: 'game', score, wave, result: 'lost', time: Date.now() }]
       }));
+      return;
     }
-  }, [lives, gameState, score, wave, updateUser]);
+    if (correctHits >= TARGETS_TO_ADVANCE && mistakes < MAX_MISTAKES) {
+      if (wave >= MAX_STAGE) {
+        setGameResult('completed');
+        setGameState('over');
+        updateUser(prev => ({
+          ...prev,
+          highScore: Math.max(prev.highScore || 0, score),
+          activityLog: [...(prev.activityLog || []), { type: 'game', score, wave: MAX_STAGE, result: 'completed', time: Date.now() }]
+        }));
+      } else {
+        spawningRef.current = true;
+        setHitMessages(m => [...m.slice(-3), { id: Math.random(), x: 50, y: 42, ok: true, text: `שלב ${wave + 1}! המהירות עולה` }]);
+        setTimeout(() => {
+          setWave(w => {
+            const next = Math.min(MAX_STAGE, w + 1);
+            setCorrectHits(0);
+            setMistakes(0);
+            setProjectiles([]);
+            setInvaders([]);
+            spawnWave(next);
+            return next;
+          });
+        }, 400);
+      }
+      return;
+    }
+    if (invaders.length === 0 && !spawningRef.current) {
+      spawningRef.current = true;
+      setTimeout(() => spawnWave(wave), 200);
+    }
+  }, [invaders.length, gameState, correctHits, mistakes, lives, score, wave, updateUser, spawnWave]);
 
   // Keyboard
   useEffect(() => {
@@ -2376,10 +2421,17 @@ const GameView = ({ userData, updateUser, setView }) => {
 
   // Touch
   const handleTouch = e => {
+    e.preventDefault();
+    const touch = e.touches?.[0] || e.changedTouches?.[0];
     const rect = containerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
-    setPlayerX(Math.max(2, Math.min(98, x)));
+    if (!rect || !touch) return;
+    const x = ((touch.clientX - rect.left) / rect.width) * 100;
+    setPlayerX(Math.max(4, Math.min(96, x)));
+  };
+
+  const handleTouchStart = e => {
+    handleTouch(e);
+    shoot();
   };
 
   if (gameState === 'menu') {
@@ -2403,9 +2455,10 @@ const GameView = ({ userData, updateUser, setView }) => {
             <h3 className="font-bold mb-3 text-amber-300">הוראות:</h3>
             <ul className="space-y-1 text-sm text-slate-300">
               <li>← → / מגע: זוז שמאלה וימינה</li>
-              <li>רווח / לחיצה: ירה</li>
-              <li>פגיעה נכונה: +100 ❘ פגיעה שגויה: -50 וחצי חיים</li>
-              <li>פספוס יעד נכון: -1 חיים</li>
+              <li>רווח / לחיצה / נגיעה במסך: ירה</li>
+              <li>כדי לעבור שלב: פגע ב-7 מטרות נכונות עם פחות מ-2 טעויות</li>
+              <li>יש 5 שלבים. בכל שלב המהירות עולה.</li>
+              <li>פגיעה נכונה: +100 ❘ פגיעה שגויה או פספוס יעד נכון: טעות</li>
               <li className="text-amber-300 pt-2">💡 טיפ: כל הכתובות באותו צבע. תצטרך לחשוב על כל אחת!</li>
             </ul>
           </div>
@@ -2430,9 +2483,9 @@ const GameView = ({ userData, updateUser, setView }) => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-pink-950/40 to-slate-950 text-white p-6 flex items-center justify-center" dir="rtl">
         <div className="text-center">
-          <h1 className="text-6xl font-black mb-4 text-pink-400">המשחק נגמר</h1>
+          <h1 className="text-5xl md:text-6xl font-black mb-4 text-pink-400">{gameResult === 'completed' ? 'כל הכבוד! סיימת 5 שלבים' : 'המשחק נגמר'}</h1>
           <div className="text-2xl mb-2">ציון סופי: <span className="text-amber-300 font-black">{score}</span></div>
-          <div className="text-lg text-slate-300 mb-8">הגעת לגל {wave}</div>
+          <div className="text-lg text-slate-300 mb-8">שלב: {Math.min(wave, MAX_STAGE)} / {MAX_STAGE} · פגיעות בשלב: {Math.min(correctHits, TARGETS_TO_ADVANCE)} / {TARGETS_TO_ADVANCE} · טעויות: {mistakes} / {MAX_MISTAKES}</div>
           {score > (userData?.highScore || 0) && score === userData?.highScore && (
             <div className="text-xl text-amber-300 mb-4">🏆 שיא חדש!</div>
           )}
@@ -2453,14 +2506,15 @@ const GameView = ({ userData, updateUser, setView }) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-purple-950/30 to-slate-900 text-white overflow-hidden relative select-none" dir="ltr">
       {/* HUD */}
-      <div className="absolute top-0 left-0 right-0 z-30 p-4 flex justify-between items-start pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 z-30 p-2 md:p-4 flex justify-between items-start gap-2 pointer-events-none">
         <div className="bg-slate-900/80 backdrop-blur px-4 py-2 rounded-xl border border-pink-500/30">
           <div className="text-xs text-slate-400">SCORE</div>
           <div className="text-2xl font-black text-pink-300">{score}</div>
         </div>
-        <div className="bg-slate-900/80 backdrop-blur px-4 py-2 rounded-xl border border-violet-500/30 text-center max-w-xs">
-          <div className="text-xs text-violet-300">משימה (גל {wave})</div>
-          <div className="text-sm font-bold mt-1" dir="rtl">{criterion?.label}</div>
+        <div className="bg-slate-900/80 backdrop-blur px-2 md:px-4 py-2 rounded-xl border border-violet-500/30 text-center max-w-[52vw] md:max-w-xs">
+          <div className="text-xs text-violet-300">שלב {wave}/{MAX_STAGE}</div>
+          <div className="text-xs md:text-sm font-bold mt-1 leading-snug" dir="rtl">{criterion?.label}</div>
+          <div className="text-[11px] md:text-xs text-emerald-300 mt-1" dir="rtl">פגיעות: {correctHits}/{TARGETS_TO_ADVANCE} · טעויות: {mistakes}/{MAX_MISTAKES}</div>
         </div>
         <div className="bg-slate-900/80 backdrop-blur px-4 py-2 rounded-xl border border-red-500/30">
           <div className="text-xs text-slate-400">LIVES</div>
@@ -2470,7 +2524,9 @@ const GameView = ({ userData, updateUser, setView }) => {
 
       {/* Play area */}
       <div ref={containerRef}
-        className="relative w-full h-screen cursor-crosshair"
+        className="relative w-full h-screen cursor-crosshair touch-none"
+        style={{ touchAction: 'none' }}
+        onTouchStart={handleTouchStart}
         onTouchMove={handleTouch}
         onClick={shoot}>
 
@@ -2486,7 +2542,7 @@ const GameView = ({ userData, updateUser, setView }) => {
           <div key={inv.id}
             className="absolute font-mono transform -translate-x-1/2"
             style={{ left: `${inv.x}%`, top: `${inv.y}%` }}>
-            <div className="px-4 py-2 rounded-lg border-2 bg-amber-900/70 border-amber-400/70 text-amber-100 text-lg md:text-xl font-bold shadow-lg shadow-amber-500/30 whitespace-nowrap">
+            <div className="px-2.5 md:px-4 py-2 rounded-lg border-2 bg-amber-900/70 border-amber-400/70 text-amber-100 text-sm sm:text-base md:text-xl font-bold shadow-lg shadow-amber-500/30 whitespace-nowrap max-w-[34vw] sm:max-w-none overflow-visible" dir="ltr">
               🏠 {inv.ip}
             </div>
           </div>
@@ -2515,7 +2571,7 @@ const GameView = ({ userData, updateUser, setView }) => {
 
         {/* Touch hint */}
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs text-slate-500 pointer-events-none">
-          ← ARROWS · SPACE / CLICK ·
+          ← ARROWS · SPACE / CLICK / TOUCH
         </div>
       </div>
     </div>
