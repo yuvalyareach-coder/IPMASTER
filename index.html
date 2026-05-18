@@ -216,7 +216,7 @@ const QGEN = {
           explain: [
             'אוקטטה היא 8 ביטים. הערך המקסימלי הוא כשכל הביטים = 1.',
             '`11111111` בבינארי = 128+64+32+16+8+4+2+1 = **255**.',
-            'לכן כל אוקטטה נעה בטווח **0-255** (סה"כ 256 ערכים אפשריים: 2^8).',
+            'לכן כל אוקטטה נעה בטווח **0-255** (סה"כ 256 ערכים אפשריים: 2⁸).',
             'טעות נפוצה: 256 לא תקין כי הספירה מתחילה מ-0, אז 0-255 = 256 ערכים.'
           ]
         },
@@ -743,7 +743,7 @@ const BLOOM_COLORS = {
 
 
 const CIDR_EXPLANATION_SECTION = {
-  title: 'מה זה CIDR ולמה כותבים /8, /16 או /24?',
+  title: 'מה זה CIDR ולמה כותבים `/8`, `/16` או `/24`?',
   content: [
     'CIDR הוא קיצור שמראה כמה ביטים של 1 יש במסכת הרשת.',
     'במקום לכתוב בכל פעם מסכה מלאה כמו `255.255.255.0`, אפשר לכתוב בקיצור `/24`.',
@@ -770,16 +770,16 @@ const TOPIC_EXTRA_EXAMPLES = {
     title: 'דוגמת חישוב נוספת בבינארי',
     content: [
       'נחשב את 170 בבינארי: הערכים הם `128 64 32 16 8 4 2 1`.',
-      '170 = 128 + 32 + 8 + 2, לכן שמים 1 מתחת לערכים האלה ו-0 בשאר.',
+      '`170 = 128 + 32 + 8 + 2`, לכן שמים 1 מתחת לערכים האלה ו-0 בשאר.',
       'התוצאה היא `10101010`.',
       'זו אותה שיטה שמשתמשים בה גם באוקטטות של כתובות IP ומסכות.'
     ]
   },
   classes: {
-    title: 'איך בודקים: ציבורית או פרטית, ומה ה-Class?',
+    title: 'איך בודקים: ציבורית או פרטית, ומה המחלקה?',
     content: [
-      'קוראים כתובת IP משמאל לימין. האוקטטה השמאלית ביותר קובעת את ה-Class: Class A בטווח 1-126, Class B בטווח 128-191, ו-Class C בטווח 192-223.',
-      'אחר כך שואלים: האם הכתובת נמצאת בטווח פרטי? הטווחים הפרטיים הם `10.0.0.0/8`, `172.16.0.0 — 172.31.255.255`, ו-`192.168.0.0/16`.',
+      'קוראים כתובת IP משמאל לימין. האוקטטה השמאלית ביותר קובעת את המחלקה: מחלקה A היא בטווח 1 עד 126, מחלקה B היא בטווח 128 עד 191, ומחלקה C היא בטווח 192 עד 223.',
+      'אחר כך בודקים אם הכתובת נמצאת בטווח פרטי. הטווחים הפרטיים הם: `10.0.0.0/8`, וגם `172.16.0.0 — 172.31.255.255`, וגם `192.168.0.0/16`.',
       'דוגמה ציבורית: `11.5.1.7` היא Class A כי האוקטטה השמאלית ביותר היא `11`, והיא ציבורית כי היא לא בטווח `10.0.0.0/8`.',
       'דוגמה פרטית: `172.20.1.7` היא Class B כי האוקטטה השמאלית ביותר היא `172`, והיא פרטית כי האוקטטה השנייה היא `20`, כלומר בין `16` ל-`31`.',
       'דוגמה פרטית נוספת: `192.168.1.7` היא Class C כי האוקטטה השמאלית ביותר היא `192`, והיא פרטית כי שתי האוקטטות הראשונות הן `192.168`.',
@@ -791,7 +791,7 @@ const TOPIC_EXTRA_EXAMPLES = {
     content: [
       'ברשת `/24`, האוקטטה האחרונה היא חלק המחשב.',
       'אם הרשת היא `192.168.4.0/24`, כתובת ה-Broadcast היא `192.168.4.255`.',
-      'כאשר מחשב `192.168.4.10` מחפש את כתובת ה-MAC של `192.168.4.50`, הוא יכול לשלוח ARP Broadcast בתוך הרשת `192.168.4.0/24`.',
+      'כאשר מחשב `192.168.4.10` רוצה לגלות מי נמצא בכתובת `192.168.4.50`, הוא יכול לשלוח ARP Broadcast בתוך הרשת `192.168.4.0/24`.',
       'כל המכשירים באותה רשת מקבלים את השאלה, אבל רק `192.168.4.50` אמור לענות.',
       'מחשב ברשת אחרת, למשל `192.168.5.20`, לא מקבל את ה-Broadcast הזה כי הוא לא באותה רשת מקומית.'
     ]
@@ -854,8 +854,8 @@ const LESSONS = {
         content: [
           'כל אוקטטה היא 8 ביטים. ערך הביטים הוא 0 או 1.',
           'הערך המקסימלי של 8 ביטים = 11111111 בבינארי = **255** בעשרוני.',
-          'הערך המינימלי = 00000000 = **0**.',
-          'לכן יש בכל אוקטטה 2^8 = **256 אפשרויות שונות** (0-255).',
+          'הערך המינימלי = `00000000 = 0`.',
+          'לכן יש בכל אוקטטה 2⁸ = **256 אפשרויות שונות** (0-255).',
         ],
         visual: 'binary-table'
       },
@@ -864,8 +864,8 @@ const LESSONS = {
         content: [
           'כל ביט באוקטטה מייצג חזקה של 2:',
           '`128 | 64 | 32 | 16 | 8 | 4 | 2 | 1`',
-          'דוגמה: 11000000 = 128 + 64 = **192**',
-          'דוגמה: 10101010 = 128 + 32 + 8 + 2 = **170**',
+          'דוגמה: `11000000 = 128 + 64 = 192`',
+          'דוגמה: `10101010 = 128 + 32 + 8 + 2 = 170`',
         ],
         visual: 'binary-converter'
       },
@@ -917,7 +917,8 @@ const LESSONS = {
           'אבל זה לא הכול: מיסוך משמש גם ל**הפרדה בין רשתות**. לדוגמה, בבית ספר אפשר להגדיר רשת תלמידים `192.168.10.0/24` ורשת מורים `192.168.20.0/24`.',
           'ההפרדה הזו עוזרת ל**אבטחה**: תלמידים לא אמורים להגיע ישירות למחשבי מורים או לשרת ציונים. הנתב או חומת האש יכולים לאפשר רק תעבורה מסוימת בין הרשתות.',
           'חשוב לזכור: המסכה עצמה לא חוסמת משתמשים. היא מגדירה גבולות. את החסימה וההרשאות עושים בדרך כלל בנתב, Firewall או VLAN — אבל בלי מיסוך נכון אי אפשר להגדיר את הגבולות בצורה מסודרת.',
-        ]
+        ],
+        visual: 'mask-split'
       },
       {
         title: 'דוגמה עמוקה: הפרדה בין תלמידים למורים',
@@ -931,7 +932,7 @@ const LESSONS = {
           'המחשב מבין שאלו **רשתות שונות**, ולכן הוא לא שולח ישירות. הוא שולח לנתב.',
           '**המשמעות המעשית:** בנתב אפשר לקבוע כלל אבטחה: תלמידים יכולים להגיע לאינטרנט ולאתר הלמידה, אבל לא למחשבי המורים. מורים יכולים להגיע למדפסת צוות ולשרת הציונים.',
         ],
-        visual: 'mask-split'
+        visual: 'mask-fence'
       },
       {
         title: 'מסכות נפוצות',
@@ -964,14 +965,14 @@ const LESSONS = {
         ]
       },
       {
-        title: 'חישוב כתובת רשת - עשרוני',
+        title: '🧪 מעבדה ממוקדת: רק המסכה משתנה',
         content: [
-          'במקרים פשוטים (255.255.255.0), פשוט מעתיקים את 3 האוקטטות הראשונות ומאפסים את האחרונה.',
-          'דוגמה: 192.168.10.45 עם /24 → כתובת רשת **192.168.10.0**',
-          'דוגמה: 192.168.10.45 עם 255.255.0.0 (/16) → כתובת רשת **192.168.0.0**',
-          'דוגמה: 10.5.3.7 עם 255.0.0.0 (/8) → כתובת רשת **10.0.0.0**',
+          'במעבדה זו כתובת ה-IP **קבועה**: `192.168.10.45`. הפעם נשנה רק את המסכה ונבדוק איך זה משפיע על כתובת הרשת.',
+          'יש 3 מסכות נפוצות שאפשר לבחור — `255.0.0.0` (זה `/8`), `255.255.0.0` (זה `/16`), `255.255.255.0` (זה `/24`).',
+          '**מה לחפש:** האוקטטות שמסומנות בירוק הן חלק הרשת — הן מועתקות מה-IP. האוקטטות שמסומנות בשחור הן חלק ה-Host — הן מתאפסות בכתובת הרשת.',
+          'ככל שהמסכה ארוכה יותר (יותר ביטי 1), חלק הרשת גדול יותר וחלק ה-Host קטן יותר — לכן הרשת מכילה פחות מחשבים אבל ההגדרה צרה יותר.'
         ],
-        visual: 'network-calc-decimal'
+        visual: 'mask-only-lab'
       }
     ]
   },
@@ -1026,7 +1027,7 @@ const LESSONS = {
           'מורידים 2 כתובות שמורות: **כתובת הרשת** ו-**כתובת ה-Broadcast**.',
           'Class C /24: יש 256 כתובות, פחות 2 שמורות = **254 מחשבים**.',
           'Class B /16: יש 65,536 כתובות, פחות 2 שמורות = **65,534 מחשבים**.',
-          '**הסבר תיאורטי:** אם יש n ביטים לחלק ה-Host, יש 2^n כתובות אפשריות, ומתוכן 2 שמורות.',
+          '**הסבר תיאורטי:** אם יש n ביטים לחלק ה-Host, יש 2ⁿ כתובות אפשריות, ומתוכן 2 שמורות.',
           '**הסבר מעשי:** ברשת תלמידים /24 אפשר לחבר עד 254 מכשירים. ברשת מורים גדולה /16 אפשר לחבר הרבה יותר, אבל בדרך כלל לא נבחר /16 אם אין צורך, כדי לא לבזבז כתובות ולשמור על סדר.',
         ]
       }
@@ -1042,10 +1043,14 @@ const LESSONS = {
         title: 'Class A',
         content: [
           'טווח אוקטטה ראשונה: **1 עד 126**',
-          'מסכת ברירת מחדל: **255.0.0.0** (או /8)',
+          'מסכת ברירת מחדל: **255.0.0.0** (או `/8`)',
           'אוקטטה ראשונה = רשת. 3 האוקטטות הנותרות = מחשבים.',
           'מספר רשתות אפשרי: כ-126 רשתות.',
-                    'דוגמה ציבורית של Class A: 11.50.15.2 → כתובת רשת 11.0.0.0',
+          '**🌍 כתובת ציבורית — דוגמה בתוך Class A:**',
+          '`11.50.15.2` — האוקטטה הראשונה היא 11 (בטווח 1-126), והיא לא בטווח הפרטי `10.x.x.x`. לכן זוהי כתובת ציבורית שיכולה להיות נגישה מהאינטרנט.',
+          '**🔒 כתובת פרטית — דוגמה בתוך Class A:**',
+          '`10.50.15.2` — בתוך הטווח `10.0.0.0/8` השמור לשימוש פרטי בלבד, ולכן לא ניתן להגיע אליה ישירות מהאינטרנט.',
+          'בקיצור: בתוך Class A, רק טווח `10.x.x.x` הוא פרטי. כל השאר ציבורי.',
         ],
         visual: 'class-a-diagram'
       },
@@ -1053,24 +1058,32 @@ const LESSONS = {
         title: 'Class B',
         content: [
           'טווח אוקטטה ראשונה: **128 עד 191**',
-          'מסכת ברירת מחדל: **255.255.0.0** (או /16)',
+          'מסכת ברירת מחדל: **255.255.0.0** (או `/16`)',
           '2 האוקטטות הראשונות = רשת. 2 הנותרות = מחשבים.',
           'מספר רשתות אפשרי: כ-16,000 רשתות.',
           'מספר מחשבים בכל רשת: **65,534**',
-          'דוגמה: 172.20.30.40 → כתובת רשת 172.20.0.0',
-          '**הסבר מעשי:** Class B מתאים לרשת גדולה יחסית, למשל קמפוס גדול או ארגון עם הרבה מחלקות. למרות זאת, בעולם אמיתי נעדיף לחלק לתת-רשתות קטנות יותר כדי לשמור על אבטחה וסדר.',
+          '**🌍 כתובת ציבורית — דוגמה בתוך Class B:**',
+          '`130.50.30.40` — האוקטטה הראשונה 130 בתוך הטווח 128-191, והשנייה 50 לא בטווח הפרטי 16-31. לכן זוהי כתובת ציבורית.',
+          '**🔒 כתובת פרטית — דוגמה בתוך Class B:**',
+          '`172.20.30.40` — האוקטטה הראשונה 172, והשנייה 20 נמצאת בטווח 16-31. לכן זוהי כתובת פרטית בתוך הטווח `172.16.0.0 — 172.31.255.255`.',
+          'שים לב: הכתובת `172.100.30.40` היא Class B אבל ציבורית, כי 100 מחוץ לטווח 16-31.',
+          '**הסבר מעשי:** Class B מתאים לרשת גדולה יחסית, למשל קמפוס גדול. בעולם אמיתי נעדיף לחלק לתת-רשתות קטנות יותר כדי לשמור על אבטחה וסדר.',
         ]
       },
       {
         title: 'Class C',
         content: [
           'טווח אוקטטה ראשונה: **192 עד 223**',
-          'מסכת ברירת מחדל: **255.255.255.0** (או /24)',
+          'מסכת ברירת מחדל: **255.255.255.0** (או `/24`)',
           '3 האוקטטות הראשונות = רשת. האחרונה = מחשבים.',
           'מספר רשתות אפשרי: מעל 2 מיליון רשתות.',
           'מספר מחשבים בכל רשת: **254**',
-          'דוגמה: 192.168.1.52 → כתובת רשת 192.168.1.0',
-          '**הסבר מעשי:** Class C /24 מתאים מאוד לרשת כיתה, מעבדה או רשת מורים קטנה: קל לזכור, קל לנהל, ומספיק עד 254 מכשירים.',
+          '**🌍 כתובת ציבורית — דוגמה בתוך Class C:**',
+          '`200.50.50.5` — האוקטטה הראשונה 200 בתוך הטווח 192-223, והיא לא בטווח הפרטי `192.168.x.x`. לכן זוהי כתובת ציבורית.',
+          '**🔒 כתובת פרטית — דוגמה בתוך Class C:**',
+          '`192.168.1.52` — שתי האוקטטות הראשונות הן 192.168, ולכן זוהי כתובת פרטית הנפוצה ברשתות ביתיות וכיתות בית ספר.',
+          'בקיצור: בתוך Class C, רק טווח `192.168.x.x` הוא פרטי. כל השאר ציבורי.',
+          '**הסבר מעשי:** Class C `/24` מתאים מאוד לרשת כיתה, מעבדה או רשת מורים קטנה: קל לזכור, קל לנהל, ומספיק עד 254 מכשירים.',
         ]
       },
       {
@@ -1106,6 +1119,21 @@ const LESSONS = {
           'זה לא אומר שהמחשב של התלמיד פתוח לכל העולם. בדרך כלל חיבורים מבחוץ פנימה נחסמים, אלא אם מגדירים במיוחד Port Forwarding או שירות ציבורי.',
           'כך מתקבל שילוב חשוב: בתוך הארגון משתמשים בכתובות פרטיות מסודרות, ומול האינטרנט משתמשים בכתובת ציבורית כדי לתקשר החוצה.',
         ]
+      },
+      {
+        title: '🧪 מעבדת התנסות: זהה Class ופרטי/ציבורי',
+        content: [
+          'במעבדה למטה תוכל להתנסות בזיהוי Classes ובהבחנה בין כתובות פרטיות לציבוריות.',
+          'התמקד בפרק זה ב**אוקטטה הראשונה** — היא קובעת את ה-Class:',
+          '`1-126` = Class A · `128-191` = Class B · `192-223` = Class C',
+          '**ניסויים מומלצים:**',
+          '- שנה את האוקטטה הראשונה ל-`10` — איזה Class? פרטי או ציבורי?',
+          '- שנה ל-`11` — אותו Class? אבל פרטי או ציבורי?',
+          '- נסה `172.20.0.5` ואז `172.100.0.5` — שני Class B, אבל איזו פרטית ואיזו ציבורית? למה?',
+          '- נסה `192.168.1.5` (פרטי קלאסי) ואז `200.1.1.1` (Class C ציבורי)',
+          '- נסה `8.8.8.8` — זה Google DNS, הרי זו כתובת ציבורית מפורסמת — בדוק!'
+        ],
+        visual: 'network-calc-no-broadcast'
       }
     ]
   },
@@ -1133,7 +1161,8 @@ const LESSONS = {
           'כל המחשבים באותה רשת מקבלים את השאלה, אבל רק המחשב שה-IP שלו הוא `192.168.1.20` עונה בחזרה עם כתובת ה-MAC שלו.',
           'דוגמה: מחשב `192.168.1.10` רוצה לשלוח מידע ל-`192.168.1.20`. אם הוא לא יודע את ה-MAC של `192.168.1.20`, הוא שולח ARP Broadcast לכל רשת `192.168.1.0/24`.',
           'אחרי שהתשובה מתקבלת, התקשורת הרגילה ממשיכה ישירות בין שני המחשבים, ולא נשלחת לכולם.'
-        ]
+        ],
+        visual: 'broadcast-fan'
       },
       {
         title: 'מתי עוד משתמשים ב-Broadcast?',
@@ -1145,7 +1174,7 @@ const LESSONS = {
         ]
       },
       {
-        title: 'דוגמה ברשת /24',
+        title: 'דוגמה ברשת `/24`',
         content: [
           'ברשת `192.168.1.0/24` עם מסכה `255.255.255.0`:',
           '- כתובת רשת: **`192.168.1.0`** — מייצגת את הרשת כולה.',
@@ -1157,7 +1186,7 @@ const LESSONS = {
         visual: 'broadcast-c'
       },
       {
-        title: 'דוגמה ברשת /16',
+        title: 'דוגמה ברשת `/16`',
         content: [
           'ברשת `172.16.0.0/16` עם מסכה `255.255.0.0`:',
           '- כתובת רשת: **`172.16.0.0`**.',
@@ -1167,7 +1196,7 @@ const LESSONS = {
         ]
       },
       {
-        title: 'דוגמה ברשת /8',
+        title: 'דוגמה ברשת `/8`',
         content: [
           'ברשת `10.0.0.0/8` עם מסכה `255.0.0.0`:',
           '- כתובת רשת: **`10.0.0.0`**.',
@@ -1194,6 +1223,20 @@ const LESSONS = {
           '2. **כתובת Broadcast** — האחרונה. משמשת לשידור לכל המכשירים באותה רשת.',
           'בנוסף, **שער ברירת המחדל** (Default Gateway) הוא בדרך כלל הכתובת הראשונה הזמינה, למשל `192.168.1.1`, והוא הכתובת של הנתב.'
         ]
+      },
+      {
+        title: '🧪 מעבדת התנסות: כתובת Broadcast חיה',
+        content: [
+          'במעבדה למטה תוכל לראות בזמן אמת איך כתובת ה-Broadcast משתנה כשמשנים את ה-IP או את המסכה.',
+          'התמקד בפרק זה ב**כתובת ה-Broadcast** ובטווח כתובות המחשבים — איפה מתחיל הטווח ואיפה הוא נגמר.',
+          '**ניסויים מומלצים:**',
+          '- התחל עם `192.168.1.50` ומסכה `255.255.255.0`. מה כתובת ה-Broadcast? מה המחשב הראשון? מה האחרון?',
+          '- שנה את ה-IP ל-`192.168.1.200`. האם כתובת ה-Broadcast השתנתה? **לא!** כי אנחנו עדיין באותה רשת.',
+          '- שנה את המסכה ל-`255.255.0.0`. עכשיו כתובת ה-Broadcast היא `192.168.255.255` — שתי האוקטטות האחרונות הפכו ל-255.',
+          '- שנה את המסכה ל-`255.0.0.0` (Class A). עכשיו ה-Broadcast הוא `192.255.255.255` — שלוש אוקטטות הפכו ל-255.',
+          '- שאלה: למה האוקטטות שהפכו ל-255 הן בדיוק האוקטטות שהמסכה היא 0? כי 0 במסכה = חלק ה-Host, וב-Broadcast כל ביטי ה-Host הם 1, וכל הביטים 1 באוקטטה זה 255.'
+        ],
+        visual: 'network-calc-with-broadcast'
       }
     ]
   }};
@@ -1203,16 +1246,29 @@ ensureTopicExamples();
 
 // Arrange the Classes lesson so public addresses are taught first, with clear examples.
 try {
+  const publicClassTableSection = {
+    title: 'טבלת קלאסים של כתובות ציבוריות',
+    content: [
+      'הטבלה הבאה מרכזת את ה-Class של כתובות ציבוריות לפי האוקטטה השמאלית ביותר בכתובת ה-IP.',
+      'חשוב לקרוא כתובת IP משמאל לימין: האוקטטה הראשונה היא זו שקובעת את ה-Class.',
+      'לא כל כתובת בתוך Class היא ציבורית. בתוך כל Class קיימים גם טווחים פרטיים שאינם נגישים ישירות מהאינטרנט.',
+      'לכן תמיד עושים שתי בדיקות: קודם מזהים Class לפי האוקטטה הראשונה, ואחר כך בודקים אם הכתובת נמצאת בטווח פרטי.'
+    ],
+    visual: 'public-address-class-table'
+  };
   const publicAddressesSection = {
     title: 'כתובות ציבוריות: מה הן ולמה הן משמשות?',
     content: [
       'כתובת ציבורית היא כתובת IP שנראית באינטרנט וניתן לנתב אליה מכל העולם, כאשר יש שירות שמאזין אליה והרשאות מתאימות.',
+      'הטבלה הקודמת עוזרת לזהות לאיזה Class שייכת כתובת ציבורית לפי האוקטטה הראשונה.',
       'משתמשים בכתובות ציבוריות עבור שרתי אינטרנט, שרתי DNS, שירותי ענן, נתבים של ספקי אינטרנט וארגונים שרוצים ששירות מסוים יהיה נגיש מבחוץ.',
       'דוגמה: משתמש מקליד שם אתר בדפדפן. DNS מתרגם את שם האתר לכתובת ציבורית של שרת אינטרנט, והבקשה נשלחת דרך האינטרנט אל השרת.',
       'דוגמות מוכרות לכתובות ציבוריות: `8.8.8.8` של Google DNS, `1.1.1.1` של Cloudflare DNS, וכתובת של שרת אינטרנט ציבורי כמו `142.250.75.110`.',
       'המשמעות של כתובת ציבורית: היא אינה מיועדת רק לרשת פנימית. היא יכולה להיות יעד באינטרנט, ולכן מחשבים מרשתות שונות יכולים לגלוש אל שירות שנמצא מאחוריה, למשל אתר אינטרנט.',
+      'באיור למטה: מצד אחד שרת עם כתובת ציבורית שכולם יכולים להגיע אליו, ומצד שני רשת פרטית סגורה (כמו רשת ביתית או רשת כיתה) שמחשבים שלה יכולים לצאת לאינטרנט, אבל לא ניתן להגיע אליהם ישירות מבחוץ.',
       'חשוב: `10.x.x.x`, `172.16-31.x.x` ו-`192.168.x.x` הן כתובות פרטיות. לכן `10.0.0.5` היא פרטית ולא ציבורית.'
-    ]
+    ],
+    visual: 'public-vs-private-server'
   };
   const privateAddressesSection = {
     title: 'כתובות פרטיות: לשימוש בתוך רשת פנימית',
@@ -1227,11 +1283,12 @@ try {
   };
   if (LESSONS?.classes?.sections) {
     const old = LESSONS.classes.sections.filter(s =>
+      !String(s.title || '').includes('טבלת קלאסים של כתובות ציבוריות') &&
       !String(s.title || '').includes('כתובות ציבוריות') &&
       !String(s.title || '').includes('כתובות פרטיות')
     );
-    LESSONS.classes.intro = 'נתחיל בכתובות ציבוריות: כתובות שנראות באינטרנט ומשמשות שרתי אינטרנט, DNS ושירותים שצריכים להיות נגישים מבחוץ. אחר כך נלמד כתובות פרטיות ו-Classes.';
-    LESSONS.classes.sections = [publicAddressesSection, privateAddressesSection, ...old];
+    LESSONS.classes.intro = 'נתחיל בטבלה מסודרת של קלאסים בכתובות ציבוריות. לאחר מכן נלמד מהי כתובת ציבורית, מהי כתובת פרטית, ואיך מזהים את ההבדל ביניהן.';
+    LESSONS.classes.sections = [publicClassTableSection, publicAddressesSection, privateAddressesSection, ...old];
   }
 } catch (e) {
   try { console.error('Failed to reorder classes lesson:', e); } catch {}
@@ -1499,7 +1556,7 @@ const LessonView = ({ topic, userData, updateUser, setView }) => {
         )}
 
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-6">
-          <h2 className="text-2xl font-bold mb-4 text-cyan-300">{current.title}</h2>
+          <h2 className="text-2xl font-bold mb-4 text-cyan-300"><FormattedTitle text={current.title} /></h2>
           <div className="space-y-3 text-slate-200 text-lg leading-relaxed">
             {current.content.map((line, i) => (
               <FormattedLine key={i} text={line} />
@@ -1528,6 +1585,30 @@ const LessonView = ({ topic, userData, updateUser, setView }) => {
       </div>
     </div>
   );
+};
+
+// Renders a heading string, treating `code` segments as inline LTR-isolated code (e.g., for CIDR /N notation in RTL titles).
+const FormattedTitle = ({ text }) => {
+  const parts = [];
+  let remaining = text || '';
+  let i = 0;
+  while (remaining.length > 0) {
+    const codeMatch = remaining.match(/`(.+?)`/);
+    if (!codeMatch) {
+      parts.push(<span key={i++}>{remaining}</span>);
+      break;
+    }
+    if (codeMatch.index > 0) {
+      parts.push(<span key={i++}>{remaining.slice(0, codeMatch.index)}</span>);
+    }
+    parts.push(
+      <code key={i++} className="font-mono text-cyan-200 bg-slate-800/80 px-2 py-0.5 rounded-md text-xl mx-0.5 ltr-run" dir="ltr">
+        {codeMatch[1]}
+      </code>
+    );
+    remaining = remaining.slice(codeMatch.index + codeMatch[0].length);
+  }
+  return <>{parts}</>;
 };
 
 const FormattedLine = ({ text }) => {
@@ -1678,6 +1759,366 @@ const VisualBlock = ({ type }) => {
   if (type === 'binary-converter') {
     return <InteractiveBinary />;
   }
+  if (type === 'public-vs-private-server') {
+    return (
+      <div className="mt-6 p-5 rounded-2xl bg-slate-950 border border-amber-500/30">
+        <div className="text-center text-sm text-amber-300 mb-3 font-bold" dir="rtl">
+          🌍 vs 🔒 — שרת עם כתובת ציבורית מול רשת פרטית סגורה
+        </div>
+        <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
+          <defs>
+            <radialGradient id="cloudGrad" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stopColor="#1e40af" stopOpacity="0.4"/>
+              <stop offset="100%" stopColor="#1e40af" stopOpacity="0.1"/>
+            </radialGradient>
+            <linearGradient id="privBox" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#7c2d12" stopOpacity="0.4"/>
+              <stop offset="100%" stopColor="#7c2d12" stopOpacity="0.2"/>
+            </linearGradient>
+            <marker id="arrGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+              <polygon points="0,0 10,5 0,10" fill="#34d399"/>
+            </marker>
+            <marker id="arrGreenStart" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto">
+              <polygon points="10,0 0,5 10,10" fill="#34d399"/>
+            </marker>
+            <marker id="arrRed" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+              <polygon points="0,0 10,5 0,10" fill="#ef4444"/>
+            </marker>
+          </defs>
+
+          {/* Internet cloud at top */}
+          <ellipse cx="400" cy="80" rx="240" ry="55" fill="url(#cloudGrad)" stroke="#60a5fa" strokeWidth="2"/>
+          <text x="400" y="70" textAnchor="middle" fill="#93c5fd" fontSize="22" fontWeight="bold" fontFamily="system-ui">🌍 האינטרנט</text>
+          <text x="400" y="98" textAnchor="middle" fill="#dbeafe" fontSize="11" fontFamily="system-ui">משתמשים מכל העולם</text>
+
+          {/* Internet users on cloud edges */}
+          {[
+            { x: 180, y: 70, emoji: '👤' },
+            { x: 240, y: 50, emoji: '💻' },
+            { x: 560, y: 50, emoji: '📱' },
+            { x: 620, y: 70, emoji: '👤' },
+          ].map((u, i) => (
+            <text key={i} x={u.x} y={u.y} textAnchor="middle" fontSize="24">{u.emoji}</text>
+          ))}
+
+          {/* ========== LEFT: Public server ========== */}
+          <g transform="translate(50, 200)">
+            <rect x="0" y="0" width="280" height="240" rx="14" fill="#064e3b" fillOpacity="0.25" stroke="#34d399" strokeWidth="2"/>
+            <text x="140" y="28" textAnchor="middle" fill="#6ee7b7" fontSize="16" fontWeight="bold" fontFamily="system-ui">🌍 שרת עם כתובת ציבורית</text>
+            <text x="140" y="50" textAnchor="middle" fill="#a7f3d0" fontSize="12" fontFamily="system-ui">נגיש מכל מקום באינטרנט</text>
+
+            {/* Server icon */}
+            <g transform="translate(100, 75)">
+              {/* server rack */}
+              <rect x="0" y="0" width="80" height="90" rx="6" fill="#1f2937" stroke="#34d399" strokeWidth="2"/>
+              {/* server slots */}
+              {[10, 28, 46, 64].map((y, i) => (
+                <g key={i}>
+                  <rect x="6" y={y} width="68" height="14" rx="2" fill="#374151"/>
+                  <circle cx="12" cy={y + 7} r="2" fill="#34d399"/>
+                  <circle cx="20" cy={y + 7} r="2" fill="#fbbf24"/>
+                  <rect x="30" y={y + 4} width="38" height="6" rx="1" fill="#4b5563"/>
+                </g>
+              ))}
+            </g>
+            <text x="140" y="190" textAnchor="middle" fill="#6ee7b7" fontSize="13" fontFamily="monospace" fontWeight="bold">142.250.75.110</text>
+            <text x="140" y="210" textAnchor="middle" fill="#d1fae5" fontSize="11" fontFamily="system-ui">(לדוגמה: שרת אתר)</text>
+            <text x="140" y="226" textAnchor="middle" fill="#86efac" fontSize="10" fontFamily="system-ui">✓ DNS מפנה שמות אתרים לכאן</text>
+          </g>
+
+          {/* Arrows: Bidirectional between Internet and public server */}
+          <line x1="190" y1="135" x2="190" y2="195" stroke="#34d399" strokeWidth="3" markerEnd="url(#arrGreen)" markerStart="url(#arrGreenStart)"/>
+          <text x="105" y="170" fill="#6ee7b7" fontSize="11" fontFamily="system-ui" textAnchor="middle">גישה דו-כיוונית ✓</text>
+
+          {/* ========== RIGHT: Private closed network ========== */}
+          <g transform="translate(470, 200)">
+            <rect x="0" y="0" width="280" height="240" rx="14" fill="url(#privBox)" stroke="#f87171" strokeWidth="2" strokeDasharray="0"/>
+            <text x="140" y="28" textAnchor="middle" fill="#fca5a5" fontSize="16" fontWeight="bold" fontFamily="system-ui">🔒 רשת פרטית סגורה</text>
+            <text x="140" y="50" textAnchor="middle" fill="#fecaca" fontSize="12" fontFamily="system-ui">בית / כיתה / מעבדה</text>
+
+            {/* Inner wall to show "closed" */}
+            <rect x="20" y="70" width="240" height="155" rx="10" fill="#0f172a" stroke="#fbbf24" strokeWidth="2" strokeDasharray="8,4"/>
+
+            {/* Router at the top of the private network */}
+            <g transform="translate(105, 75)">
+              <rect x="0" y="0" width="70" height="30" rx="5" fill="#475569" stroke="#fbbf24" strokeWidth="2"/>
+              <circle cx="14" cy="15" r="2.5" fill="#34d399"/>
+              <circle cx="26" cy="15" r="2.5" fill="#fbbf24"/>
+              <circle cx="38" cy="15" r="2.5" fill="#34d399"/>
+              <circle cx="50" cy="15" r="2.5" fill="#34d399"/>
+              <line x1="14" y1="0" x2="14" y2="-10" stroke="#475569" strokeWidth="2"/>
+              <line x1="56" y1="0" x2="56" y2="-10" stroke="#475569" strokeWidth="2"/>
+              <text x="35" y="44" textAnchor="middle" fill="#fde68a" fontSize="9" fontWeight="bold" fontFamily="system-ui">ROUTER + NAT</text>
+            </g>
+
+            {/* Private computers */}
+            {[
+              { x: 40,  y: 130, ip: '192.168.1.10' },
+              { x: 155, y: 130, ip: '192.168.1.11' },
+              { x: 40,  y: 185, ip: '192.168.1.12' },
+              { x: 155, y: 185, ip: '192.168.1.13' },
+            ].map((c, i) => (
+              <g key={i} transform={`translate(${c.x},${c.y})`}>
+                <rect x="0" y="0" width="60" height="32" rx="3" fill="#0e7490" stroke="#22d3ee" strokeWidth="1.5"/>
+                <rect x="4" y="4" width="52" height="20" rx="2" fill="#164e63"/>
+                <rect x="22" y="32" width="16" height="6" fill="#0e7490"/>
+                <text x="30" y="50" textAnchor="middle" fill="#67e8f9" fontSize="8.5" fontFamily="monospace">{c.ip}</text>
+              </g>
+            ))}
+          </g>
+
+          {/* Arrows: One-way outbound only (private → internet through NAT) */}
+          <line x1="610" y1="200" x2="610" y2="135" stroke="#34d399" strokeWidth="3" strokeDasharray="6,3" markerEnd="url(#arrGreen)"/>
+          <text x="700" y="170" fill="#6ee7b7" fontSize="11" fontFamily="system-ui" textAnchor="middle">יציאה בלבד</text>
+          <text x="700" y="184" fill="#6ee7b7" fontSize="11" fontFamily="system-ui" textAnchor="middle">(דרך NAT) ✓</text>
+
+          {/* Arrows: Internet trying to reach private = blocked */}
+          <line x1="580" y1="135" x2="580" y2="200" stroke="#ef4444" strokeWidth="3" strokeDasharray="3,3" markerEnd="url(#arrRed)" opacity="0.85"/>
+          {/* Big red X over the inbound arrow */}
+          <g transform="translate(545, 155)">
+            <circle cx="15" cy="15" r="14" fill="#7f1d1d" stroke="#ef4444" strokeWidth="2"/>
+            <line x1="6" y1="6" x2="24" y2="24" stroke="#fee2e2" strokeWidth="3" strokeLinecap="round"/>
+            <line x1="24" y1="6" x2="6" y2="24" stroke="#fee2e2" strokeWidth="3" strokeLinecap="round"/>
+          </g>
+          <text x="500" y="170" fill="#fca5a5" fontSize="11" fontFamily="system-ui" textAnchor="middle">חסום</text>
+          <text x="500" y="184" fill="#fca5a5" fontSize="11" fontFamily="system-ui" textAnchor="middle">מבחוץ</text>
+        </svg>
+
+        {/* Caption below */}
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3" dir="rtl">
+          <div className="p-3 rounded-lg bg-emerald-900/20 border border-emerald-500/40 text-sm">
+            <div className="font-bold text-emerald-300 mb-1">🌍 שרת ציבורי (Public)</div>
+            <ul className="text-slate-200 text-xs space-y-1 list-disc list-inside marker:text-emerald-400">
+              <li>יש לו <strong>כתובת IP ציבורית ייחודית</strong> באינטרנט.</li>
+              <li>כל אחד יכול להגיע אליו ישירות (אם השרת מאזין).</li>
+              <li>שימוש: שרתי אתרים, שרתי DNS, שרתי מייל.</li>
+              <li>דוגמאות: <span className="font-mono ltr-run text-emerald-300" dir="ltr">8.8.8.8</span>, <span className="font-mono ltr-run text-emerald-300" dir="ltr">142.250.75.110</span>.</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-lg bg-red-900/20 border border-red-500/40 text-sm">
+            <div className="font-bold text-red-300 mb-1">🔒 רשת פרטית סגורה (Private)</div>
+            <ul className="text-slate-200 text-xs space-y-1 list-disc list-inside marker:text-red-400">
+              <li>מחשבים בפנים משתמשים ב<strong>כתובות פרטיות</strong> (10.x / 172.16-31.x / 192.168.x).</li>
+              <li>הם יכולים <strong>לצאת</strong> לאינטרנט דרך הנתב (NAT).</li>
+              <li>אבל <strong>אי אפשר להגיע אליהם ישירות מבחוץ</strong>.</li>
+              <li>כך עובד הראוטר הביתי / רשת בית הספר.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (type === 'broadcast-fan') {
+    return (
+      <div className="mt-6 p-5 rounded-2xl bg-slate-950 border border-pink-500/30">
+        <div className="text-center text-sm text-pink-300 mb-3 font-bold" dir="rtl">
+          📡 איור: Broadcast — הודעה אחת לכל המחשבים ברשת
+        </div>
+        <svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
+          <defs>
+            <radialGradient id="senderGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#ec4899" stopOpacity="0.6"/>
+              <stop offset="100%" stopColor="#ec4899" stopOpacity="0"/>
+            </radialGradient>
+            <marker id="bcArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+              <polygon points="0,0 10,5 0,10" fill="#f472b6"/>
+            </marker>
+          </defs>
+
+          {/* Network boundary */}
+          <rect x="20" y="30" width="760" height="320" rx="20" fill="#0b1220" stroke="#334155" strokeWidth="2" strokeDasharray="6,6"/>
+          <text x="400" y="58" textAnchor="middle" fill="#94a3b8" fontSize="16" fontWeight="bold" fontFamily="system-ui">רשת מקומית 192.168.1.0/24</text>
+          <text x="400" y="78" textAnchor="middle" fill="#64748b" fontSize="12" fontFamily="monospace">Broadcast: 192.168.1.255</text>
+
+          {/* Sender in the center */}
+          <circle cx="400" cy="200" r="80" fill="url(#senderGlow)"/>
+          <g transform="translate(365, 175)">
+            <rect x="0" y="0" width="70" height="48" rx="4" fill="#9d174d" stroke="#ec4899" strokeWidth="3"/>
+            <rect x="6" y="6" width="58" height="32" rx="2" fill="#500724"/>
+            <rect x="26" y="48" width="18" height="10" fill="#9d174d"/>
+            <rect x="14" y="58" width="42" height="4" rx="2" fill="#ec4899"/>
+            <text x="35" y="78" textAnchor="middle" fill="#fbcfe8" fontSize="11" fontFamily="monospace" fontWeight="bold">192.168.1.10</text>
+            <text x="35" y="92" textAnchor="middle" fill="#f472b6" fontSize="10" fontFamily="system-ui">השולח</text>
+          </g>
+
+          {/* Receivers around the sender */}
+          {[
+            { x: 100,  y: 110, ip: '.20' },
+            { x: 100,  y: 270, ip: '.30' },
+            { x: 250,  y: 100, ip: '.40' },
+            { x: 250,  y: 290, ip: '.50' },
+            { x: 540,  y: 100, ip: '.60' },
+            { x: 540,  y: 290, ip: '.70' },
+            { x: 680,  y: 110, ip: '.80' },
+            { x: 680,  y: 270, ip: '.90' },
+          ].map((c, i) => (
+            <g key={i}>
+              {/* Broadcast wave arrow from sender to this receiver */}
+              <line x1="400" y1="200" x2={c.x + 35} y2={c.y + 25} stroke="#f472b6" strokeWidth="2" strokeDasharray="6,4" markerEnd="url(#bcArrow)" opacity="0.7"/>
+              {/* receiver computer */}
+              <g transform={`translate(${c.x},${c.y})`}>
+                <rect x="0" y="0" width="70" height="48" rx="4" fill="#0e7490" stroke="#22d3ee" strokeWidth="2"/>
+                <rect x="6" y="6" width="58" height="32" rx="2" fill="#164e63"/>
+                <rect x="26" y="48" width="18" height="10" fill="#0e7490"/>
+                <rect x="14" y="58" width="42" height="4" rx="2" fill="#22d3ee"/>
+                <text x="35" y="80" textAnchor="middle" fill="#67e8f9" fontSize="11" fontFamily="monospace">192.168.1{c.ip}</text>
+              </g>
+            </g>
+          ))}
+
+          {/* Outside the network — does NOT receive */}
+          <g transform="translate(710, 30)">
+            <text x="0" y="14" fill="#64748b" fontSize="11" fontFamily="system-ui" textAnchor="end">✗ לא חוצה את גבול הרשת</text>
+          </g>
+        </svg>
+
+        <div className="mt-4 p-3 rounded-lg bg-slate-900 border border-slate-700 text-sm text-slate-200 leading-relaxed" dir="rtl">
+          <p><strong className="text-pink-300">מה רואים באיור:</strong></p>
+          <ul className="list-disc list-inside space-y-1 mr-2 marker:text-pink-400 mt-1">
+            <li>המחשב <strong className="text-pink-300">192.168.1.10</strong> שולח הודעה אחת לכתובת <code className="ltr-run bg-slate-800 text-pink-300 px-1 rounded" dir="ltr">192.168.1.255</code>.</li>
+            <li>כל המחשבים <strong>באותה רשת מקומית</strong> מקבלים את ההודעה (החצים הוורודים).</li>
+            <li>הגבול המקווקו מסמן את גבול הרשת. <strong>Broadcast לא חוצה את הגבול</strong> — נתבים בדרך כלל לא מעבירים אותו לרשתות אחרות.</li>
+            <li>השימוש הנפוץ ביותר: <strong>ARP</strong> — מחפש כתובת MAC של יעד שאת ה-IP שלו אנחנו יודעים.</li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
+  if (type === 'mask-fence') {
+    return (
+      <div className="mt-6 p-5 rounded-2xl bg-slate-950 border border-violet-500/30">
+        <div className="text-center text-sm text-violet-300 mb-3 font-bold" dir="rtl">
+          🚧 איור: שתי רשתות מופרדות — הנתב הוא הגדר
+        </div>
+        <svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
+          {/* Sky/background gradient */}
+          <defs>
+            <linearGradient id="netA" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#1e293b"/>
+              <stop offset="100%" stopColor="#0f172a"/>
+            </linearGradient>
+            <linearGradient id="netB" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#1e293b"/>
+              <stop offset="100%" stopColor="#0f172a"/>
+            </linearGradient>
+            <pattern id="grass" patternUnits="userSpaceOnUse" width="20" height="20">
+              <rect width="20" height="20" fill="#064e3b" opacity="0.3"/>
+            </pattern>
+          </defs>
+
+          {/* Left network (students) */}
+          <rect x="20" y="40" width="320" height="300" rx="20" fill="url(#netA)" stroke="#06b6d4" strokeWidth="3"/>
+          <text x="180" y="68" textAnchor="middle" fill="#67e8f9" fontSize="18" fontWeight="bold" fontFamily="system-ui">רשת תלמידים</text>
+          <text x="180" y="92" textAnchor="middle" fill="#94a3b8" fontSize="14" fontFamily="monospace">192.168.10.0 / 24</text>
+
+          {/* Student computers - 4 in a 2x2 grid */}
+          {[
+            { x: 75, y: 130, ip: '.11' },
+            { x: 215, y: 130, ip: '.12' },
+            { x: 75, y: 240, ip: '.13' },
+            { x: 215, y: 240, ip: '.14' },
+          ].map((c, i) => (
+            <g key={i} transform={`translate(${c.x},${c.y})`}>
+              {/* monitor */}
+              <rect x="0" y="0" width="70" height="48" rx="4" fill="#0e7490" stroke="#22d3ee" strokeWidth="2"/>
+              <rect x="6" y="6" width="58" height="32" rx="2" fill="#164e63"/>
+              {/* stand */}
+              <rect x="26" y="48" width="18" height="10" fill="#0e7490"/>
+              <rect x="14" y="58" width="42" height="4" rx="2" fill="#22d3ee"/>
+              {/* IP label */}
+              <text x="35" y="80" textAnchor="middle" fill="#67e8f9" fontSize="12" fontFamily="monospace">192.168.10{c.ip}</text>
+            </g>
+          ))}
+
+          {/* Right network (teachers) */}
+          <rect x="460" y="40" width="320" height="300" rx="20" fill="url(#netB)" stroke="#a78bfa" strokeWidth="3"/>
+          <text x="620" y="68" textAnchor="middle" fill="#c4b5fd" fontSize="18" fontWeight="bold" fontFamily="system-ui">רשת מורים</text>
+          <text x="620" y="92" textAnchor="middle" fill="#94a3b8" fontSize="14" fontFamily="monospace">192.168.20.0 / 24</text>
+
+          {/* Teacher computers */}
+          {[
+            { x: 515, y: 130, ip: '.11' },
+            { x: 655, y: 130, ip: '.12' },
+            { x: 515, y: 240, ip: '.13' },
+            { x: 655, y: 240, ip: '.14' },
+          ].map((c, i) => (
+            <g key={i} transform={`translate(${c.x},${c.y})`}>
+              <rect x="0" y="0" width="70" height="48" rx="4" fill="#6d28d9" stroke="#a78bfa" strokeWidth="2"/>
+              <rect x="6" y="6" width="58" height="32" rx="2" fill="#3b0764"/>
+              <rect x="26" y="48" width="18" height="10" fill="#6d28d9"/>
+              <rect x="14" y="58" width="42" height="4" rx="2" fill="#a78bfa"/>
+              <text x="35" y="80" textAnchor="middle" fill="#c4b5fd" fontSize="12" fontFamily="monospace">192.168.20{c.ip}</text>
+            </g>
+          ))}
+
+          {/* Fence between networks */}
+          <g transform="translate(360, 40)">
+            {/* Fence ground/grass strip */}
+            <rect x="0" y="280" width="80" height="20" fill="#065f46" opacity="0.5"/>
+            {/* Fence top rail */}
+            <rect x="0" y="200" width="80" height="6" fill="#92400e"/>
+            <rect x="0" y="250" width="80" height="6" fill="#92400e"/>
+            {/* Fence pickets */}
+            {[5, 18, 31, 44, 57, 70].map((px, i) => (
+              <g key={i}>
+                <rect x={px} y="190" width="8" height="90" fill="#b45309"/>
+                <polygon points={`${px},190 ${px + 4},182 ${px + 8},190`} fill="#b45309"/>
+              </g>
+            ))}
+            {/* Router (the "gate") on top */}
+            <g transform="translate(8, 100)">
+              <rect x="0" y="0" width="64" height="38" rx="6" fill="#475569" stroke="#fbbf24" strokeWidth="3"/>
+              {/* router lights */}
+              <circle cx="14" cy="14" r="3" fill="#34d399"/>
+              <circle cx="26" cy="14" r="3" fill="#fbbf24"/>
+              <circle cx="38" cy="14" r="3" fill="#34d399"/>
+              <circle cx="50" cy="14" r="3" fill="#34d399"/>
+              {/* antennas */}
+              <line x1="14" y1="0" x2="14" y2="-14" stroke="#475569" strokeWidth="2"/>
+              <line x1="50" y1="0" x2="50" y2="-14" stroke="#475569" strokeWidth="2"/>
+              <circle cx="14" cy="-16" r="3" fill="#fbbf24"/>
+              <circle cx="50" cy="-16" r="3" fill="#fbbf24"/>
+              <text x="32" y="30" textAnchor="middle" fill="#fde68a" fontSize="10" fontWeight="bold" fontFamily="system-ui">ROUTER</text>
+            </g>
+            {/* Wires connecting to networks */}
+            <line x1="8" y1="119" x2="-20" y2="119" stroke="#fbbf24" strokeWidth="2" strokeDasharray="4,3"/>
+            <line x1="72" y1="119" x2="100" y2="119" stroke="#fbbf24" strokeWidth="2" strokeDasharray="4,3"/>
+          </g>
+
+          {/* Caption arrows: same-network direct */}
+          <path d="M 110,180 Q 180,160 250,180" stroke="#34d399" strokeWidth="2" fill="none" markerEnd="url(#arrowG)"/>
+          <text x="180" y="155" textAnchor="middle" fill="#6ee7b7" fontSize="11" fontFamily="system-ui">תקשורת ישירה ✓</text>
+
+          <path d="M 550,180 Q 620,160 690,180" stroke="#34d399" strokeWidth="2" fill="none" markerEnd="url(#arrowG)"/>
+          <text x="620" y="155" textAnchor="middle" fill="#6ee7b7" fontSize="11" fontFamily="system-ui">תקשורת ישירה ✓</text>
+
+          {/* Caption arrow: cross-network must go through router */}
+          <path d="M 250,290 Q 400,330 550,290" stroke="#f59e0b" strokeWidth="2" fill="none" strokeDasharray="6,4" markerEnd="url(#arrowO)"/>
+          <text x="400" y="335" textAnchor="middle" fill="#fbbf24" fontSize="12" fontFamily="system-ui" fontWeight="bold">חייב לעבור דרך הנתב</text>
+
+          {/* Arrow markers */}
+          <defs>
+            <marker id="arrowG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <polygon points="0,0 8,4 0,8" fill="#34d399"/>
+            </marker>
+            <marker id="arrowO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <polygon points="0,0 8,4 0,8" fill="#f59e0b"/>
+            </marker>
+          </defs>
+        </svg>
+
+        <div className="mt-4 p-3 rounded-lg bg-slate-900 border border-slate-700 text-sm text-slate-200 leading-relaxed" dir="rtl">
+          <p><strong className="text-violet-300">מה רואים באיור:</strong></p>
+          <ul className="list-disc list-inside space-y-1 mr-2 marker:text-violet-400 mt-1">
+            <li>שתי רשתות נפרדות, כל אחת עם <strong>שם רשת שונה</strong> (192.168.10 לעומת 192.168.20).</li>
+            <li>המחשבים בתוך אותה רשת מדברים <strong className="text-emerald-300">ישירות</strong> — חצים ירוקים.</li>
+            <li>מעבר בין הרשתות חייב לעבור דרך <strong className="text-amber-300">הגדר/הנתב</strong> — חץ כתום.</li>
+            <li>המסכה <code className="ltr-run bg-slate-800 text-cyan-300 px-1 rounded" dir="ltr">255.255.255.0</code> היא זו שגורמת לכך שמחשבים עם 192.168.10.x ו-192.168.20.x נמצאים ב<strong>רשתות שונות</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
   if (type === 'mask-split') {
     return (
       <div className="mt-6 p-5 rounded-xl bg-slate-950 border border-violet-500/30 font-mono" dir="ltr">
@@ -1785,21 +2226,52 @@ const VisualBlock = ({ type }) => {
   if (type === 'network-calc-decimal') {
     return <DecimalNetworkCalc />;
   }
+  if (type === 'network-calc-no-broadcast') {
+    return <DecimalNetworkCalc showBroadcast={false} />;
+  }
+  if (type === 'network-calc-with-broadcast') {
+    return <DecimalNetworkCalc showBroadcast={true} />;
+  }
+  if (type === 'mask-only-lab') {
+    return <MaskOnlyLab />;
+  }
   if (type === 'class-a-diagram') {
     return (
-      <div className="mt-6 p-5 rounded-xl bg-slate-950 border border-amber-500/30 font-mono" dir="ltr">
-        <div className="text-center text-amber-300 text-sm mb-3">// Class A Structure</div>
-        <div className="flex gap-1 mb-2">
-          <div className="flex-1 bg-amber-900/40 p-3 rounded text-center border border-amber-500/30">
-            <div className="text-xs text-amber-300">NET</div>
-            <div className="font-bold">1-126</div>
+      <div className="mt-6 p-5 rounded-xl bg-slate-950 border border-amber-500/30">
+        {/* RTL Hebrew banner */}
+        <div className="mb-3 p-3 rounded-lg bg-gradient-to-l from-emerald-900/40 via-amber-900/40 to-emerald-900/40 border border-amber-500/50 text-center" dir="rtl">
+          <div className="text-amber-200 font-bold text-base">🌍 רשתות ציבוריות — מבנה Class A</div>
+          <div className="text-xs text-amber-300/80 mt-1">הדוגמה למטה היא כתובת ציבורית בתוך Class A (לא בטווח הפרטי 10.x)</div>
+        </div>
+
+        <div className="font-mono" dir="ltr">
+          <div className="text-center text-amber-300 text-sm mb-3">// Class A Structure</div>
+          <div className="flex gap-1 mb-2">
+            <div className="flex-1 bg-amber-900/40 p-3 rounded text-center border border-amber-500/30">
+              <div className="text-xs text-amber-300">NET</div>
+              <div className="font-bold">1-126</div>
+            </div>
+            <div className="flex-[3] bg-slate-800 p-3 rounded text-center border border-slate-700">
+              <div className="text-xs text-slate-400">HOST (3 octets)</div>
+              <div className="font-bold text-slate-300">0-255 . 0-255 . 0-255</div>
+            </div>
           </div>
-          <div className="flex-[3] bg-slate-800 p-3 rounded text-center border border-slate-700">
-            <div className="text-xs text-slate-400">HOST (3 octets)</div>
-            <div className="font-bold text-slate-300">0-255 . 0-255 . 0-255</div>
+          <div className="text-xs text-center text-slate-400 mt-2">Mask: 255.0.0.0 (/8)</div>
+        </div>
+
+        {/* Public/private examples within Class A */}
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2" dir="rtl">
+          <div className="p-2 rounded-lg bg-emerald-900/20 border border-emerald-500/40 text-xs">
+            <div className="font-bold text-emerald-300 mb-1">🌍 דוגמה ציבורית</div>
+            <div className="font-mono text-emerald-200 ltr-run" dir="ltr">11.50.15.2</div>
+            <div className="text-slate-300 mt-1">לא בטווח 10.x — נגישה מהאינטרנט</div>
+          </div>
+          <div className="p-2 rounded-lg bg-red-900/20 border border-red-500/40 text-xs">
+            <div className="font-bold text-red-300 mb-1">🔒 דוגמה פרטית</div>
+            <div className="font-mono text-red-200 ltr-run" dir="ltr">10.50.15.2</div>
+            <div className="text-slate-300 mt-1">בטווח 10.0.0.0/8 — שמור לרשתות פרטיות</div>
           </div>
         </div>
-        <div className="text-xs text-center text-slate-400 mt-2">Mask: 255.0.0.0 (/8)</div>
       </div>
     );
   }
@@ -1824,6 +2296,73 @@ const VisualBlock = ({ type }) => {
       </div>
     );
   }
+  if (type === 'public-address-class-table') {
+    const rows = [
+      {
+        cls: 'Class A',
+        first: '1-126',
+        publicRange: '1.0.0.0 — 126.255.255.255',
+        privateExcluded: '10.0.0.0/8',
+        example: '8.8.8.8 / 11.5.1.7',
+        mask: '255.0.0.0 (/8)'
+      },
+      {
+        cls: 'Class B',
+        first: '128-191',
+        publicRange: '128.0.0.0 — 191.255.255.255',
+        privateExcluded: '172.16.0.0 — 172.31.255.255',
+        example: '172.15.1.10 / 172.100.5.1',
+        mask: '255.255.0.0 (/16)'
+      },
+      {
+        cls: 'Class C',
+        first: '192-223',
+        publicRange: '192.0.0.0 — 223.255.255.255',
+        privateExcluded: '192.168.0.0/16',
+        example: '200.1.1.1 / 203.0.113.10',
+        mask: '255.255.255.0 (/24)'
+      }
+    ];
+    return (
+      <div className="mt-6 rounded-2xl bg-slate-950 border border-cyan-500/30 overflow-hidden" dir="rtl">
+        <div className="bg-cyan-900/25 border-b border-cyan-500/30 p-4">
+          <div className="text-xl font-black text-cyan-300">טבלת סיכום: קלאסים של כתובות ציבוריות</div>
+          <div className="text-sm text-slate-300 mt-1">קוראים את ה-IP משמאל לימין. האוקטטה הראשונה קובעת את ה-Class, אבל צריך לוודא שהכתובת אינה בטווח פרטי.</div>
+        </div>
+        <div className="overflow-x-auto safe-scroll">
+          <table className="w-full min-w-[900px] text-sm">
+            <thead className="bg-slate-800/80 text-slate-200">
+              <tr>
+                <th className="p-3 text-right">Class</th>
+                <th className="p-3 text-right">האוקטטה הראשונה</th>
+                <th className="p-3 text-right">טווח ציבורי כללי</th>
+                <th className="p-3 text-right">טווח פרטי שיש להוציא</th>
+                <th className="p-3 text-right">דוגמאות ציבוריות</th>
+                <th className="p-3 text-right">מסכת ברירת מחדל</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800">
+              {rows.map((r) => (
+                <tr key={r.cls} className="hover:bg-slate-900/70">
+                  <td className="p-3 font-black text-amber-300 ltr-run" dir="ltr">{r.cls}</td>
+                  <td className="p-3"><span className="font-mono text-cyan-300 ltr-run" dir="ltr">{r.first}</span></td>
+                  <td className="p-3"><span className="font-mono text-slate-200 ltr-run" dir="ltr">{r.publicRange}</span></td>
+                  <td className="p-3"><span className="font-mono text-pink-300 ltr-run" dir="ltr">{r.privateExcluded}</span></td>
+                  <td className="p-3"><span className="font-mono text-emerald-300 ltr-run" dir="ltr">{r.example}</span></td>
+                  <td className="p-3"><span className="font-mono text-violet-300 ltr-run" dir="ltr">{r.mask}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="p-4 bg-slate-900/80 border-t border-slate-800 text-sm text-slate-300 leading-7">
+          <div className="font-bold text-cyan-200 mb-1">איך משתמשים בטבלה?</div>
+          <div>דוגמה: <span className="font-mono text-emerald-300 ltr-run" dir="ltr">172.100.5.1</span> היא Class B כי האוקטטה הראשונה היא <span className="font-mono ltr-run" dir="ltr">172</span>. היא ציבורית כי האוקטטה השנייה היא <span className="font-mono ltr-run" dir="ltr">100</span>, והיא לא בטווח הפרטי <span className="font-mono ltr-run" dir="ltr">172.16-31.x.x</span>.</div>
+        </div>
+      </div>
+    );
+  }
+
   if (type === 'broadcast-c') {
     return (
       <div className="mt-6 p-5 rounded-xl bg-slate-950 border border-pink-500/30 font-mono" dir="ltr">
@@ -1871,21 +2410,26 @@ const InteractiveBinary = () => {
   const dec = bits.reduce((s, b, i) => s + (b ? Math.pow(2, 7 - i) : 0), 0);
   const weights = [128, 64, 32, 16, 8, 4, 2, 1];
   return (
-    <div className="mt-6 p-5 rounded-xl bg-slate-950 border border-emerald-500/30 font-mono" dir="ltr">
-      <div className="text-center text-emerald-300 text-sm mb-3">// Click bits to toggle</div>
-      <div className="grid grid-cols-8 gap-2 mb-3">
-        {bits.map((b, i) => (
-          <button key={i}
-            onClick={() => setBits(p => p.map((x, j) => i === j ? (x ? 0 : 1) : x))}
-            className={`p-3 rounded-lg transition-all ${b ? 'bg-emerald-500 text-slate-950 font-bold scale-105' : 'bg-slate-800 text-slate-500'}`}>
-            <div className="text-xl">{b}</div>
-            <div className="text-[10px] opacity-70">{weights[i]}</div>
-          </button>
-        ))}
+    <div className="mt-6 p-5 rounded-xl bg-slate-950 border border-emerald-500/30">
+      <div className="mb-3 p-3 rounded-lg bg-emerald-900/20 border border-emerald-500/30" dir="rtl">
+        <div className="font-bold text-emerald-200 mb-1">🧪 התנסות: בנה מספר בבינארי</div>
+        <div className="text-sm text-slate-200">לחץ על כל ביט כדי להפעיל או לכבות אותו (0 או 1). שים לב איך הערך העשרוני משתנה — כל ביט פעיל מוסיף את המשקל שלו לסכום. נסה לבנות את 192, 200, 255 ואת 170 (שזה 10101010).</div>
       </div>
-      <div className="text-center">
-        <span className="text-slate-400">Decimal: </span>
-        <span className="text-2xl font-black text-emerald-300">{dec}</span>
+      <div className="font-mono" dir="ltr">
+        <div className="grid grid-cols-8 gap-2 mb-3">
+          {bits.map((b, i) => (
+            <button key={i}
+              onClick={() => setBits(p => p.map((x, j) => i === j ? (x ? 0 : 1) : x))}
+              className={`p-3 rounded-lg transition-all ${b ? 'bg-emerald-500 text-slate-950 font-bold scale-105' : 'bg-slate-800 text-slate-500'}`}>
+              <div className="text-xl">{b}</div>
+              <div className="text-[10px] opacity-70">{weights[i]}</div>
+            </button>
+          ))}
+        </div>
+        <div className="text-center">
+          <span className="text-slate-400">Decimal: </span>
+          <span className="text-2xl font-black text-emerald-300">{dec}</span>
+        </div>
       </div>
     </div>
   );
@@ -1917,48 +2461,301 @@ const BinaryANDDemo = () => {
   );
 };
 
-const DecimalNetworkCalc = () => {
+const ipToInt = (ip) => ip.split('.').map(Number).reduce((a, b) => ((a << 8) | b) >>> 0, 0);
+const intToIp = (n) => [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.');
+
+const DecimalNetworkCalc = ({ showBroadcast = true }) => {
   const [ip, setIp] = useState('192.168.10.45');
   const [mask, setMask] = useState('255.255.255.0');
-  const valid = validIP(ip) && validIP(mask);
+  const ipValid = validIP(ip);
+  const maskValid = validIP(mask);
+  const valid = ipValid && maskValid;
+
+  let network, broadcast, cidr, hosts, cls, priv, firstHost, lastHost, ipBin, maskBin, netBin, bcBin;
+  if (valid) {
+    network = calcNetwork(ip, mask);
+    broadcast = calcBroadcast(ip, mask);
+    cidr = cidrFromMask(mask);
+    hosts = hostsInNetwork(mask);
+    cls = ipClass(ip);
+    priv = isPrivate(ip);
+    if (hosts > 0) {
+      firstHost = intToIp(ipToInt(network) + 1);
+      lastHost = intToIp(ipToInt(broadcast) - 1);
+    }
+    ipBin = ipToBinary(ip);
+    maskBin = ipToBinary(mask);
+    netBin = ipToBinary(network);
+    bcBin = ipToBinary(broadcast);
+  }
+
   return (
-    <div className="mt-6 p-5 rounded-xl bg-slate-950 border border-violet-500/30 font-mono" dir="ltr">
-      <div className="text-center text-violet-300 text-sm mb-3">// Try it yourself</div>
-      <div className="grid grid-cols-2 gap-3 mb-3">
-        <div>
-          <label className="text-[10px] text-slate-400">IP</label>
-          <input value={ip} onChange={e => setIp(e.target.value)}
-            className="w-full p-2 mt-1 rounded bg-slate-800 border border-slate-700 text-cyan-300 focus:border-cyan-500 focus:outline-none" />
+    <div className="mt-6 p-5 rounded-2xl bg-slate-950 border border-violet-500/40">
+      {/* Instructions panel - in Hebrew */}
+      <div className="mb-4 p-4 rounded-xl bg-gradient-to-bl from-violet-900/40 to-cyan-900/30 border border-violet-500/30" dir="rtl">
+        <div className="flex items-center gap-2 mb-2 font-bold text-violet-200 text-lg">
+          <span className="text-2xl">🧪</span> מעבדת התנסות אינטראקטיבית
         </div>
-        <div>
-          <label className="text-[10px] text-slate-400">Mask</label>
-          <input value={mask} onChange={e => setMask(e.target.value)}
-            className="w-full p-2 mt-1 rounded bg-slate-800 border border-slate-700 text-violet-300 focus:border-violet-500 focus:outline-none" />
+        <div className="text-sm text-slate-200 leading-relaxed space-y-2">
+          <p><strong className="text-cyan-300">המשימה שלך:</strong> שנה את ערכי <strong>כתובת ה-IP</strong> ואת <strong>המסכה</strong> בתיבות למטה, וצפה איך התוצאות (כתובת הרשת, Broadcast, מספר מחשבים, Class, פרטי/ציבורי) משתנות בזמן אמת.</p>
+          <p className="text-amber-300 font-bold">💡 ניסויים מומלצים:</p>
+          <ul className="list-disc list-inside text-sm space-y-1 mr-2 marker:text-amber-400">
+            <li>שנה את ה-IP ל-<span className="font-mono text-cyan-300 ltr-run px-1" dir="ltr">10.5.20.7</span> — איזה Class זה? פרטית או ציבורית? למה?</li>
+            <li>החלף את המסכה מ-<span className="font-mono text-violet-300 ltr-run px-1" dir="ltr">255.255.255.0</span> ל-<span className="font-mono text-violet-300 ltr-run px-1" dir="ltr">255.255.0.0</span>. שים לב איך <strong>כתובת הרשת</strong> משתנה ומספר המחשבים גדל פי <strong>256</strong>!</li>
+            <li>שנה רק את האוקטטה האחרונה של ה-IP (למשל מ-<span className="ltr-run" dir="ltr">45</span> ל-<span className="ltr-run" dir="ltr">200</span>). האם כתובת הרשת השתנתה? <strong>לא!</strong> מדוע? כי המסכה אומרת שהאוקטטה האחרונה היא חלק ה-Host (לא חלק הרשת).</li>
+            <li>שנה את האוקטטה הראשונה מ-<span className="ltr-run" dir="ltr">192</span> ל-<span className="ltr-run" dir="ltr">10</span>, ואז ל-<span className="ltr-run" dir="ltr">172</span>, ואז ל-<span className="ltr-run" dir="ltr">8</span>. עקוב אחרי שינוי ה-Class וסוג הכתובת.</li>
+            <li>בדוק את <strong>הניתוח הבינארי</strong> בתחתית — שם תראה איך פעולת AND בין IP למסכה מייצרת את כתובת הרשת.</li>
+            <li>נסה כתובת לא חוקית כמו <span className="font-mono ltr-run px-1" dir="ltr">300.1.1.1</span> או מסכה מוזרה — מה המעבדה מציגה?</li>
+          </ul>
         </div>
       </div>
-      {valid ? (
-        <div className="space-y-2 text-sm">
-          <div className="p-3 rounded bg-violet-900/30 flex justify-between border border-violet-500/30">
-            <span className="text-violet-300">Network:</span>
-            <span className="font-bold">{calcNetwork(ip, mask)}</span>
-          </div>
-          <div className="p-3 rounded bg-pink-900/30 flex justify-between border border-pink-500/30">
-            <span className="text-pink-300">Broadcast:</span>
-            <span className="font-bold">{calcBroadcast(ip, mask)}</span>
-          </div>
-          {mask === '255.255.255.0' ? (
-            <div className="p-3 rounded bg-emerald-900/30 flex justify-between border border-emerald-500/30">
-              <span className="text-emerald-300">Hosts:</span>
-              <span className="font-bold">254</span>
-            </div>
-          ) : (
-            <div className="p-3 rounded bg-slate-800/70 border border-slate-700 text-slate-400 text-center">
-              חישוב כמות מארחים מוצג רק עבור /24
-            </div>
-          )}
+
+      {/* Quick-pick mask buttons */}
+      <div className="mb-3" dir="rtl">
+        <div className="text-xs text-slate-400 mb-2">בחירות מהירות למסכה:</div>
+        <div className="flex flex-wrap gap-2" dir="ltr">
+          {['255.0.0.0', '255.255.0.0', '255.255.255.0'].map(m => (
+            <button key={m} onClick={() => setMask(m)}
+              className={`px-3 py-1.5 rounded-md text-xs font-mono transition-colors ${m === mask ? 'bg-violet-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'}`}>
+              {m} (/{cidrFromMask(m)})
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Inputs - mask first (appears on right in RTL), IP second (appears on left) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4" dir="rtl">
+        <div>
+          <label className="text-xs text-violet-300 font-bold">מסכת רשת (Subnet Mask)</label>
+          <input value={mask} onChange={e => setMask(e.target.value)}
+            dir="ltr"
+            className="w-full p-3 mt-1 rounded-lg bg-slate-800 border-2 border-slate-700 text-violet-300 font-mono text-lg focus:border-violet-500 focus:outline-none text-center" />
+        </div>
+        <div>
+          <label className="text-xs text-cyan-300 font-bold">כתובת IP</label>
+          <input value={ip} onChange={e => setIp(e.target.value)}
+            dir="ltr"
+            className="w-full p-3 mt-1 rounded-lg bg-slate-800 border-2 border-slate-700 text-cyan-300 font-mono text-lg focus:border-cyan-500 focus:outline-none text-center" />
+        </div>
+      </div>
+
+      {!valid ? (
+        <div className="p-4 rounded-lg bg-pink-900/30 border border-pink-500/40 text-pink-200 text-center" dir="rtl">
+          <strong>שים לב:</strong> {!ipValid && 'כתובת ה-IP לא תקינה. '}{!maskValid && 'המסכה לא תקינה. '}
+          כל אוקטטה חייבת להיות מספר בין 0 ל-255, מופרדת בנקודה.
         </div>
       ) : (
-        <div className="text-pink-400 text-sm text-center p-3">כתובת או מסכה לא תקינות</div>
+        <div className="space-y-3" dir="rtl">
+          {/* Classification quick-info */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div className="p-3 rounded-lg bg-amber-900/30 border border-amber-500/40 text-center">
+              <div className="text-[10px] text-amber-300 mb-1">Class</div>
+              <div className="text-2xl font-black text-amber-200">{cls}</div>
+            </div>
+            <div className="p-3 rounded-lg bg-emerald-900/30 border border-emerald-500/40 text-center">
+              <div className="text-[10px] text-emerald-300 mb-1">סוג הכתובת</div>
+              <div className="text-sm font-bold text-emerald-200 pt-1">{priv ? '🔒 פרטית' : '🌍 ציבורית'}</div>
+            </div>
+            <div className="p-3 rounded-lg bg-cyan-900/30 border border-cyan-500/40 text-center">
+              <div className="text-[10px] text-cyan-300 mb-1">CIDR</div>
+              <div className="text-2xl font-black text-cyan-200 ltr-run" dir="ltr">/{cidr}</div>
+            </div>
+            <div className="p-3 rounded-lg bg-pink-900/30 border border-pink-500/40 text-center">
+              <div className="text-[10px] text-pink-300 mb-1">מחשבים שמישים</div>
+              <div className="text-base font-black text-pink-200 ltr-run pt-1" dir="ltr">{hosts > 0 ? hosts.toLocaleString() : '0'}</div>
+            </div>
+          </div>
+
+          {/* Network details */}
+          <div className="p-4 rounded-lg bg-slate-900 border border-slate-700">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+              <div className="flex justify-between items-center p-2 rounded bg-violet-900/30 border border-violet-500/30">
+                <span className="text-violet-300 font-bold">כתובת רשת</span>
+                <span className="font-mono font-bold ltr-run text-white" dir="ltr">{network}</span>
+              </div>
+              {showBroadcast && (
+                <div className="flex justify-between items-center p-2 rounded bg-pink-900/30 border border-pink-500/30">
+                  <span className="text-pink-300 font-bold">Broadcast</span>
+                  <span className="font-mono font-bold ltr-run text-white" dir="ltr">{broadcast}</span>
+                </div>
+              )}
+              {hosts > 0 ? (
+                <>
+                  <div className="flex justify-between items-center p-2 rounded bg-slate-800 border border-slate-700">
+                    <span className="text-emerald-300">מחשב ראשון</span>
+                    <span className="font-mono ltr-run text-emerald-200" dir="ltr">{firstHost}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-2 rounded bg-slate-800 border border-slate-700">
+                    <span className="text-emerald-300">מחשב אחרון</span>
+                    <span className="font-mono ltr-run text-emerald-200" dir="ltr">{lastHost}</span>
+                  </div>
+                </>
+              ) : (
+                <div className="col-span-2 p-2 rounded bg-slate-800 border border-slate-700 text-center text-slate-400 text-xs">
+                  אין מחשבים שמישים במסכה זו (מסכה מיוחדת)
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Binary breakdown */}
+          <details className="rounded-lg bg-slate-900 border border-slate-700">
+            <summary className="p-3 cursor-pointer text-cyan-300 font-bold text-sm hover:bg-slate-800 select-none">
+              🔬 הצג ניתוח בינארי מלא (פעולת AND ביט-ביט)
+            </summary>
+            <div className="p-3 font-mono text-xs space-y-1 overflow-x-auto" dir="ltr">
+              <div className="flex gap-2 items-baseline">
+                <span className="text-slate-500 inline-block w-16 text-right shrink-0">IP:</span>
+                <span className="text-cyan-300 whitespace-nowrap">{ipBin}</span>
+              </div>
+              <div className="flex gap-2 items-baseline">
+                <span className="text-slate-500 inline-block w-16 text-right shrink-0">Mask:</span>
+                <span className="text-violet-300 whitespace-nowrap">{maskBin}</span>
+              </div>
+              <div className="flex gap-2 items-baseline border-t border-slate-700 pt-2 mt-2">
+                <span className="text-slate-500 inline-block w-16 text-right shrink-0">AND →</span>
+                <span className="text-emerald-300 whitespace-nowrap font-bold">{netBin}</span>
+              </div>
+              <div className="text-center text-emerald-300 pt-2 font-bold text-base">= {network} (כתובת רשת)</div>
+              {showBroadcast && (
+                <>
+                  <div className="flex gap-2 items-baseline border-t border-slate-700 pt-2 mt-3">
+                    <span className="text-slate-500 inline-block w-16 text-right shrink-0">Broadcast:</span>
+                    <span className="text-pink-300 whitespace-nowrap font-bold">{bcBin}</span>
+                  </div>
+                  <div className="text-center text-pink-300 pt-1 font-bold text-base">= {broadcast}</div>
+                </>
+              )}
+            </div>
+          </details>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Mask-only lab: IP is fixed; user only changes the mask to see how the network address changes.
+const MaskOnlyLab = () => {
+  const FIXED_IP = '192.168.10.45';
+  const [mask, setMask] = useState('255.255.255.0');
+  const network = calcNetwork(FIXED_IP, mask);
+  const cidr = cidrFromMask(mask);
+  const hosts = hostsInNetwork(mask);
+
+  const MASK_OPTIONS = [
+    {
+      mask: '255.0.0.0',
+      cidr: 8,
+      activeClass: 'bg-amber-600 text-white shadow-lg shadow-amber-500/30',
+      panelClass: 'bg-amber-900/20 border-amber-500/40',
+      titleClass: 'text-amber-300',
+      desc: 'רק האוקטטה הראשונה היא הרשת. 3 האוקטטות האחרונות הן Host.',
+      hosts: '16,777,214',
+    },
+    {
+      mask: '255.255.0.0',
+      cidr: 16,
+      activeClass: 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/30',
+      panelClass: 'bg-cyan-900/20 border-cyan-500/40',
+      titleClass: 'text-cyan-300',
+      desc: 'שתי האוקטטות הראשונות הן הרשת. שתי האחרונות הן Host.',
+      hosts: '65,534',
+    },
+    {
+      mask: '255.255.255.0',
+      cidr: 24,
+      activeClass: 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30',
+      panelClass: 'bg-emerald-900/20 border-emerald-500/40',
+      titleClass: 'text-emerald-300',
+      desc: 'שלוש האוקטטות הראשונות הן הרשת. רק האוקטטה האחרונה היא Host.',
+      hosts: '254',
+    },
+  ];
+
+  const activeOption = MASK_OPTIONS.find(o => o.mask === mask);
+  // Build a 4-octet view of the network address that highlights which octets are "fixed" by the mask.
+  const ipOctets = FIXED_IP.split('.');
+  const networkOctets = network.split('.');
+  const maskOctets = mask.split('.').map(Number);
+
+  return (
+    <div className="mt-6 p-5 rounded-2xl bg-slate-950 border border-violet-500/40">
+      {/* Instructions */}
+      <div className="mb-4 p-4 rounded-xl bg-gradient-to-bl from-violet-900/40 to-cyan-900/30 border border-violet-500/30" dir="rtl">
+        <div className="flex items-center gap-2 mb-2 font-bold text-violet-200 text-lg">
+          <span className="text-2xl">🧪</span> מעבדה: רק המסכה משתנה
+        </div>
+        <div className="text-sm text-slate-200 leading-relaxed space-y-2">
+          <p><strong className="text-cyan-300">המשימה שלך:</strong> כתובת ה-IP נשארת זהה. לחץ על המסכות השונות בכפתורים, וצפה איך <strong>כתובת הרשת</strong> משתנה.</p>
+          <p className="text-amber-300 font-bold">💡 שאלות מנחות בזמן ההתנסות:</p>
+          <ul className="list-disc list-inside text-sm space-y-1 mr-2 marker:text-amber-400">
+            <li>איזה חלק מכתובת ה-IP "שורד" אל כתובת הרשת בכל מסכה?</li>
+            <li>איפה כתובת הרשת מקבלת 0 — ומה זה אומר על חלק ה-Host?</li>
+            <li>למה במסכה <span className="ltr-run text-cyan-300 font-mono px-1" dir="ltr">/8</span> יש הכי הרבה מחשבים אפשריים?</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Fixed IP display + mask-on-right layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4" dir="rtl">
+        {/* Mask side - first child = right side in RTL */}
+        <div className="p-3 rounded-lg bg-slate-900 border-2 border-violet-500/40">
+          <div className="text-xs text-violet-300 font-bold mb-2">מסכה (בחר אחת):</div>
+          <div className="flex flex-col gap-2">
+            {MASK_OPTIONS.map(opt => (
+              <button key={opt.mask} onClick={() => setMask(opt.mask)}
+                className={`p-2 rounded-lg text-sm transition-colors flex items-center justify-between gap-3 ${mask === opt.mask ? opt.activeClass : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'}`}>
+                <span className="font-mono ltr-run" dir="ltr">{opt.mask}</span>
+                <span className="font-mono font-bold ltr-run" dir="ltr">/{opt.cidr}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* IP side (fixed, read-only) - second child = left side in RTL */}
+        <div className="p-3 rounded-lg bg-slate-900 border-2 border-cyan-500/40">
+          <div className="text-xs text-cyan-300 font-bold mb-2 flex items-center gap-2">
+            כתובת IP <span className="text-[10px] text-slate-500 font-normal">(קבועה במעבדה זו)</span>
+          </div>
+          <div className="p-3 rounded bg-slate-800 text-cyan-300 font-mono text-2xl text-center ltr-run" dir="ltr">
+            {FIXED_IP}
+          </div>
+          <div className="mt-2 text-xs text-slate-400 text-center">כאן מתמקדים רק במסכה — ה-IP נשאר זהה.</div>
+        </div>
+      </div>
+
+      {/* Result: network address highlighted octet-by-octet */}
+      <div className="p-4 rounded-2xl bg-gradient-to-bl from-emerald-900/30 to-slate-900 border border-emerald-500/40 mb-3">
+        <div className="text-xs text-emerald-300 font-bold mb-2 text-center" dir="rtl">כתובת הרשת המחושבת</div>
+        <div className="grid grid-cols-4 gap-2 mb-2" dir="ltr">
+          {networkOctets.map((oct, i) => {
+            const isNetworkOctet = maskOctets[i] === 255;
+            return (
+              <div key={i} className={`p-3 rounded-lg text-center font-mono ${isNetworkOctet ? 'bg-emerald-700/40 border-2 border-emerald-400' : 'bg-slate-800 border-2 border-slate-700'}`}>
+                <div className={`text-2xl font-black ${isNetworkOctet ? 'text-emerald-200' : 'text-slate-500'}`}>{oct}</div>
+                <div className={`text-[10px] mt-1 ${isNetworkOctet ? 'text-emerald-300' : 'text-slate-500'}`}>{isNetworkOctet ? 'רשת' : 'Host'}</div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="text-center font-mono text-emerald-200 text-xl font-black ltr-run mt-2" dir="ltr">
+          = {network} <span className="text-emerald-400 text-base">(/{cidr})</span>
+        </div>
+      </div>
+
+      {/* Explanation per mask */}
+      {activeOption && (
+        <div className={`p-3 rounded-lg border text-sm text-slate-200 ${activeOption.panelClass}`} dir="rtl">
+          <div className="flex items-center gap-2 mb-1">
+            <span className={`font-bold ${activeOption.titleClass}`}>
+              מסכה <span className="ltr-run font-mono" dir="ltr">{activeOption.mask}</span> = <span className="ltr-run font-mono" dir="ltr">/{activeOption.cidr}</span>
+            </span>
+          </div>
+          <div className="mb-1">{activeOption.desc}</div>
+          <div className="text-xs text-slate-300">
+            מחשבים אפשריים ברשת: <span className="font-mono text-amber-300 ltr-run" dir="ltr">{activeOption.hosts}</span>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -2197,6 +2994,56 @@ const PracticeView = ({ topic, userData, updateUser, setView }) => {
 };
 
 // ============== SPACE INVADERS GAME ==============
+
+// Per-event explanation: why was this address a match (or not) for the criterion?
+const explainAddressVsCriterion = (ip, criterionId) => {
+  if (!ip || !criterionId) return '';
+  const parts = ip.split('.').map(Number);
+  const [a, b, , d] = parts;
+  const cls = ipClass(ip);
+  const priv = isPrivate(ip);
+  switch (criterionId) {
+    case 'private':
+      if (priv) {
+        if (a === 10) return `הכתובת פרטית כי האוקטטה הראשונה היא 10 — הטווח 10.0.0.0/8 הוא פרטי לחלוטין.`;
+        if (a === 172) return `הכתובת פרטית כי האוקטטה הראשונה היא 172 והשנייה (${b}) בטווח 16-31 — זה הטווח הפרטי 172.16.0.0–172.31.255.255.`;
+        if (a === 192 && b === 168) return `הכתובת פרטית כי שתי האוקטטות הראשונות הן 192.168 — הטווח 192.168.0.0/16 פרטי.`;
+        return `הכתובת בטווח פרטי.`;
+      }
+      if (a === 172) return `הכתובת ציבורית: האוקטטה הראשונה 172 אבל השנייה (${b}) מחוץ לטווח 16-31, לכן אין כאן טווח פרטי.`;
+      if (a === 192 && b !== 168) return `הכתובת ציבורית: האוקטטה הראשונה 192 אבל השנייה (${b}) אינה 168, לכן זה לא הטווח הפרטי 192.168.x.x.`;
+      return `הכתובת ציבורית — היא לא בטווחי 10.x.x.x, 172.16-31.x.x או 192.168.x.x.`;
+    case 'public':
+      if (!priv) return `הכתובת ציבורית — היא לא בטווחי 10.x.x.x, 172.16-31.x.x או 192.168.x.x.`;
+      if (a === 10) return `הכתובת פרטית (טווח 10.0.0.0/8) — לא ציבורית.`;
+      if (a === 172) return `הכתובת פרטית (172.16-31, השנייה ${b}) — לא ציבורית.`;
+      if (a === 192 && b === 168) return `הכתובת פרטית (192.168.x.x) — לא ציבורית.`;
+      return `הכתובת פרטית.`;
+    case 'classA':
+      return cls === 'A'
+        ? `Class A: האוקטטה הראשונה ${a}, בטווח 1-126.`
+        : `לא Class A — האוקטטה הראשונה ${a}, מחוץ לטווח 1-126. זה Class ${cls}.`;
+    case 'classB':
+      return cls === 'B'
+        ? `Class B: האוקטטה הראשונה ${a}, בטווח 128-191.`
+        : `לא Class B — האוקטטה הראשונה ${a}, מחוץ לטווח 128-191. זה Class ${cls}.`;
+    case 'classC':
+      return cls === 'C'
+        ? `Class C: האוקטטה הראשונה ${a}, בטווח 192-223.`
+        : `לא Class C — האוקטטה הראשונה ${a}, מחוץ לטווח 192-223. זה Class ${cls}.`;
+    case 'broadcast24':
+      return d === 255
+        ? `כתובת Broadcast של /24: האוקטטה הרביעית = 255, כלומר כל ביטי ה-Host דולקים.`
+        : `לא Broadcast של /24 — האוקטטה הרביעית היא ${d}, לא 255.`;
+    case 'network24':
+      return d === 0
+        ? `כתובת רשת של /24: האוקטטה הרביעית = 0, כלומר כל ביטי ה-Host כבויים.`
+        : `לא כתובת רשת של /24 — האוקטטה הרביעית היא ${d}, לא 0.`;
+    default:
+      return '';
+  }
+};
+
 const GameView = ({ userData, updateUser, setView }) => {
   const [gameState, setGameState] = useState('menu'); // menu, playing, over
   const [criterion, setCriterion] = useState(null);
@@ -2204,14 +3051,15 @@ const GameView = ({ userData, updateUser, setView }) => {
   const [projectiles, setProjectiles] = useState([]);
   const [playerX, setPlayerX] = useState(50);
   const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(5);
+  const [lives, setLives] = useState(4);
   const [wave, setWave] = useState(1); // stage 1-5
   const [correctHits, setCorrectHits] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [gameResult, setGameResult] = useState('lost'); // lost, completed
+  const [gameEvents, setGameEvents] = useState([]); // {ip, criterionId, criterionLabel, wave, type:'correct'|'wrong-shot'|'missed'}
   const MAX_STAGE = 5;
   const TARGETS_TO_ADVANCE = 5;
-  const MAX_MISTAKES = 5;
+  const MAX_MISTAKES = 4;
   const containerRef = useRef(null);
   const keysRef = useRef({});
   const lastShotRef = useRef(0);
@@ -2235,7 +3083,7 @@ const GameView = ({ userData, updateUser, setView }) => {
     setCriterion(crit);
     const newInvaders = [];
     // בכל שלב מופיעות כתובות במספר שמתאים גם לנייד.
-    // השלבים מתקדמים אחרי 7 פגיעות נכונות ופחות מ-2 טעויות.
+    // השלבים מתקדמים אחרי 5 פגיעות נכונות עם פחות מ-4 טעויות.
     const count = Math.min(6, 3 + Math.floor((stage - 1) / 2));
     for (let i = 0; i < count; i++) {
       let ip;
@@ -2275,11 +3123,12 @@ const GameView = ({ userData, updateUser, setView }) => {
   const startGame = () => {
     setGameState('playing');
     setScore(0);
-    setLives(5);
+    setLives(4);
     setWave(1);
     setCorrectHits(0);
     setMistakes(0);
     setGameResult('lost');
+    setGameEvents([]);
     setProjectiles([]);
     setInvaders([]);
     setHitMessages([]);
@@ -2298,30 +3147,44 @@ const GameView = ({ userData, updateUser, setView }) => {
   // Game loop
   useEffect(() => {
     if (gameState !== 'playing') return;
+    let lastFrame = Date.now();
     const interval = setInterval(() => {
-      // Move invaders down
+      const now = Date.now();
+      const dt = Math.min(0.06, Math.max(0.012, (now - lastFrame) / 1000));
+      lastFrame = now;
+
+      // Move invaders down using real elapsed time.
+      // Faster game: each stage has a shorter fall time.
+      // Stage 1 starts gentle and each stage gets noticeably faster.
+      // אם הכתובת מגיעה לתחתית ולא ירו בה בזמן — זה נחשב פספוס/טעות.
       setInvaders(prev => {
-        const moved = prev.map(inv => ({ ...inv, y: inv.y + 0.45 + wave * 0.075 }));
-        // Check ones reached bottom
+        const fallTimes = [6.5, 5.3, 4.2, 3.4, 2.7];
+        const fallDistance = 98; // from y=-10 to y=88
+        const fallSpeed = fallDistance / (fallTimes[Math.min(wave - 1, fallTimes.length - 1)] || 3.2);
+        const moved = prev.map(inv => ({ ...inv, y: inv.y + fallSpeed * dt }));
         const reachedBottom = moved.filter(inv => inv.y > 88);
         if (reachedBottom.length > 0) {
-          const missedTargets = reachedBottom.filter(inv => inv.match).length;
-          if (missedTargets > 0) {
-            setMistakes(m => m + missedTargets);
-            setLives(l => l - missedTargets);
+          const missed = reachedBottom.filter(inv => inv.match);
+          if (missed.length > 0) {
+            setMistakes(m => m + missed.length);
+            setLives(l => l - missed.length);
+            setGameEvents(ev => [
+              ...ev,
+              ...missed.map(inv => ({ ip: inv.ip, criterionId: criterion?.id, criterionLabel: criterion?.label, wave, type: 'missed' }))
+            ]);
           }
         }
         return moved.filter(inv => inv.y <= 88);
       });
 
-      // Move projectiles up
-      setProjectiles(prev => prev.map(p => ({ ...p, y: p.y - 4 })).filter(p => p.y > -5));
+      // Move projectiles up quickly enough for the faster game.
+      setProjectiles(prev => prev.map(p => ({ ...p, y: p.y - 360 * dt })).filter(p => p.y > -5));
 
       // Handle keyboard movement
-      if (keysRef.current['ArrowLeft']) setPlayerX(x => Math.max(2, x - 1.5));
-      if (keysRef.current['ArrowRight']) setPlayerX(x => Math.min(98, x + 1.5));
+      if (keysRef.current['ArrowLeft']) setPlayerX(x => Math.max(2, x - 220 * dt));
+      if (keysRef.current['ArrowRight']) setPlayerX(x => Math.min(98, x + 220 * dt));
       if (keysRef.current[' ']) shoot();
-    }, 30);
+    }, 16);
     return () => clearInterval(interval);
     // eslint-disable-next-line
   }, [gameState, playerX, wave]);
@@ -2337,17 +3200,19 @@ const GameView = ({ userData, updateUser, setView }) => {
         for (const inv of invaders) {
           if (hitInvaderIds.has(inv.id)) continue;
           // Hit box מורחב: בנייד לא חייבים לפגוע בדיוק במרכז הכתובת.
-          if (Math.abs(proj.x - inv.x) < 14 && Math.abs(proj.y - inv.y) < 11) {
+          if (Math.abs(proj.x - inv.x) < 18 && Math.abs(proj.y - inv.y) < 14) {
             hitInvaderIds.add(inv.id);
             hit = true;
             // Score adjustment and stage progress
             if (inv.match) {
               setScore(s => s + 100);
               setCorrectHits(h => h + 1);
+              setGameEvents(ev => [...ev, { ip: inv.ip, criterionId: criterion?.id, criterionLabel: criterion?.label, wave, type: 'correct' }]);
             } else {
               setScore(s => s - 50);
               setMistakes(m => m + 1);
               setLives(l => l - 1);
+              setGameEvents(ev => [...ev, { ip: inv.ip, criterionId: criterion?.id, criterionLabel: criterion?.label, wave, type: 'wrong-shot' }]);
             }
             const msg = { id: Math.random(), x: inv.x, y: inv.y, ok: inv.match, text: inv.match ? '🎯 פגיעה נכונה!' : '❌ טעות' };
             setHitMessages(m => [...m.slice(-4), msg]);
@@ -2365,7 +3230,7 @@ const GameView = ({ userData, updateUser, setView }) => {
     });
   }, [projectiles, invaders, gameState]);
 
-  // Stage completion: 7 correct hits with fewer than 2 mistakes advances to the next stage.
+  // Stage completion: 5 correct hits with fewer than 4 mistakes advances to the next stage.
   useEffect(() => {
     if (gameState !== 'playing') return;
     if (mistakes >= MAX_MISTAKES || lives <= 0) {
@@ -2394,19 +3259,18 @@ const GameView = ({ userData, updateUser, setView }) => {
           setWave(w => {
             const next = Math.min(MAX_STAGE, w + 1);
             setCorrectHits(0);
-            setMistakes(0);
             setProjectiles([]);
             setInvaders([]);
             spawnWave(next);
             return next;
           });
-        }, 400);
+        }, 900);
       }
       return;
     }
     if (invaders.length === 0 && !spawningRef.current) {
       spawningRef.current = true;
-      setTimeout(() => spawnWave(wave), 200);
+      setTimeout(() => spawnWave(wave), 500);
     }
   }, [invaders.length, gameState, correctHits, mistakes, lives, score, wave, updateUser, spawnWave]);
 
@@ -2456,9 +3320,10 @@ const GameView = ({ userData, updateUser, setView }) => {
             <ul className="space-y-1 text-sm text-slate-300">
               <li>← → / מגע: זוז שמאלה וימינה</li>
               <li>רווח / לחיצה / נגיעה במסך: ירה</li>
-              <li>כדי לעבור שלב: פגע ב-7 מטרות נכונות עם פחות מ-2 טעויות</li>
-              <li>יש 5 שלבים. בכל שלב המהירות עולה.</li>
-              <li>פגיעה נכונה: +100 ❘ פגיעה שגויה או פספוס יעד נכון: טעות</li>
+              <li>כדי לעבור שלב: פגע ב-<strong className="text-emerald-300">5 מטרות נכונות</strong> בלי לצבור 4 טעויות</li>
+              <li>יש <strong className="text-violet-300">5 שלבים</strong>. בכל שלב הכתובות יורדות מהר יותר — שלב 5 הוא הקשה ביותר.</li>
+              <li>פגיעה נכונה: +100 ❘ פגיעה שגויה: −50 ונחשבת טעות.</li>
+              <li>פספוס מטרה נכונה (היא הגיעה לתחתית בלי שירית בה) — גם זה נחשב טעות. <strong className="text-pink-300">בטעות הרביעית המשחק נגמר!</strong></li>
               <li className="text-amber-300 pt-2">💡 טיפ: כל הכתובות באותו צבע. תצטרך לחשוב על כל אחת!</li>
             </ul>
           </div>
@@ -2480,19 +3345,102 @@ const GameView = ({ userData, updateUser, setView }) => {
   }
 
   if (gameState === 'over') {
+    const correctEvents = gameEvents.filter(e => e.type === 'correct');
+    const wrongShotEvents = gameEvents.filter(e => e.type === 'wrong-shot');
+    const missedEvents = gameEvents.filter(e => e.type === 'missed');
+    const allMistakes = [...wrongShotEvents, ...missedEvents];
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-pink-950/40 to-slate-950 text-white p-6 flex items-center justify-center" dir="rtl">
-        <div className="text-center">
-          <h1 className="text-5xl md:text-6xl font-black mb-4 text-pink-400">{gameResult === 'completed' ? 'כל הכבוד! סיימת 5 שלבים' : 'המשחק נגמר'}</h1>
-          <div className="text-2xl mb-2">ציון סופי: <span className="text-amber-300 font-black">{score}</span></div>
-          <div className="text-lg text-slate-300 mb-8">שלב: {Math.min(wave, MAX_STAGE)} / {MAX_STAGE} · פגיעות בשלב: {Math.min(correctHits, TARGETS_TO_ADVANCE)} / {TARGETS_TO_ADVANCE} · טעויות: {mistakes} / {MAX_MISTAKES}</div>
-          {score > (userData?.highScore || 0) && score === userData?.highScore && (
-            <div className="text-xl text-amber-300 mb-4">🏆 שיא חדש!</div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-pink-950/40 to-slate-950 text-white p-4 sm:p-6" dir="rtl">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-6">
+            <h1 className="text-4xl md:text-5xl font-black mb-3 text-pink-400">
+              {gameResult === 'completed' ? '🏆 כל הכבוד! סיימת את כל 5 השלבים' : 'המשחק נגמר'}
+            </h1>
+            <div className="text-2xl mb-1">ציון סופי: <span className="text-amber-300 font-black">{score}</span></div>
+            <div className="text-base text-slate-300">
+              שלב: <span className="text-violet-300 font-bold">{Math.min(wave, MAX_STAGE)}/{MAX_STAGE}</span>
+              {' · '}פגיעות נכונות סה״כ: <span className="text-emerald-300 font-bold">{correctEvents.length}</span>
+              {' · '}טעויות: <span className="text-pink-300 font-bold">{mistakes}/{MAX_MISTAKES}</span>
+            </div>
+          </div>
+
+          {/* Summary cards */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
+            <div className="p-3 rounded-xl bg-emerald-900/30 border border-emerald-500/40 text-center">
+              <div className="text-3xl font-black text-emerald-300">{correctEvents.length}</div>
+              <div className="text-xs text-emerald-200 mt-1">פגיעות נכונות 🎯</div>
+            </div>
+            <div className="p-3 rounded-xl bg-pink-900/30 border border-pink-500/40 text-center">
+              <div className="text-3xl font-black text-pink-300">{wrongShotEvents.length}</div>
+              <div className="text-xs text-pink-200 mt-1">ירי שגוי ❌</div>
+            </div>
+            <div className="p-3 rounded-xl bg-amber-900/30 border border-amber-500/40 text-center">
+              <div className="text-3xl font-black text-amber-300">{missedEvents.length}</div>
+              <div className="text-xs text-amber-200 mt-1">פספסת מטרה ⏱</div>
+            </div>
+          </div>
+
+          {/* Mistakes panel (educational priority) */}
+          {allMistakes.length > 0 && (
+            <div className="mb-5 p-4 rounded-2xl bg-slate-900 border border-pink-500/30">
+              <div className="font-bold text-lg text-pink-300 mb-3 flex items-center gap-2">
+                <X className="w-5 h-5" /> מה הלך לא טוב? ({allMistakes.length})
+              </div>
+              <div className="space-y-2 max-h-80 overflow-y-auto safe-scroll pl-1">
+                {allMistakes.map((e, i) => (
+                  <div key={i} className={`p-3 rounded-lg border ${e.type === 'wrong-shot' ? 'bg-pink-950/30 border-pink-500/30' : 'bg-amber-950/30 border-amber-500/30'}`}>
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded ${e.type === 'wrong-shot' ? 'bg-pink-500/20 text-pink-200' : 'bg-amber-500/20 text-amber-200'}`}>
+                        {e.type === 'wrong-shot' ? 'ירי שגוי' : 'פספוס'}
+                      </span>
+                      <span className="text-xs text-slate-400">שלב {e.wave}</span>
+                      <span className="font-mono text-base font-bold text-white ltr-run" dir="ltr">🏠 {e.ip}</span>
+                    </div>
+                    <div className="text-xs text-slate-300 mb-1">קריטריון: <span className="text-cyan-300">{e.criterionLabel}</span></div>
+                    <div className="text-sm text-slate-200">
+                      {e.type === 'wrong-shot'
+                        ? <><span className="text-pink-300 font-bold">למה זו טעות:</span> {explainAddressVsCriterion(e.ip, e.criterionId)} לכן לא היה צריך לירות בכתובת הזו.</>
+                        : <><span className="text-amber-300 font-bold">למה זה פספוס:</span> {explainAddressVsCriterion(e.ip, e.criterionId)} זו דווקא הייתה מטרה נכונה — ולא ירית בה בזמן.</>
+                      }
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
-          <div className="flex gap-3 justify-center">
+
+          {/* Correct hits panel */}
+          {correctEvents.length > 0 && (
+            <div className="mb-5 p-4 rounded-2xl bg-slate-900 border border-emerald-500/30">
+              <div className="font-bold text-lg text-emerald-300 mb-3 flex items-center gap-2">
+                <Check className="w-5 h-5" /> פגיעות נכונות ({correctEvents.length})
+              </div>
+              <div className="space-y-2 max-h-72 overflow-y-auto safe-scroll pl-1">
+                {correctEvents.map((e, i) => (
+                  <div key={i} className="p-3 rounded-lg bg-emerald-950/30 border border-emerald-500/30">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-200">פגיעה נכונה</span>
+                      <span className="text-xs text-slate-400">שלב {e.wave}</span>
+                      <span className="font-mono text-base font-bold text-white ltr-run" dir="ltr">🏠 {e.ip}</span>
+                    </div>
+                    <div className="text-xs text-slate-300 mb-1">קריטריון: <span className="text-cyan-300">{e.criterionLabel}</span></div>
+                    <div className="text-sm text-slate-200"><span className="text-emerald-300 font-bold">למה זה נכון:</span> {explainAddressVsCriterion(e.ip, e.criterionId)}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {gameEvents.length === 0 && (
+            <div className="mb-5 p-4 rounded-xl bg-slate-900 border border-slate-700 text-center text-slate-400">
+              לא נרשמו אירועים במשחק. נסה שוב!
+            </div>
+          )}
+
+          <div className="flex gap-3 justify-center flex-wrap">
             <button onClick={startGame}
               className="px-6 py-3 rounded-xl bg-gradient-to-l from-pink-600 to-violet-600 hover:from-pink-500 hover:to-violet-500 font-bold">
-              <RefreshCw className="w-5 h-5 inline ml-2" /> שוב
+              <RefreshCw className="w-5 h-5 inline ml-2" /> שחק שוב
             </button>
             <button onClick={() => setView({ name: 'dashboard' })} className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700">
               לוח הבית
